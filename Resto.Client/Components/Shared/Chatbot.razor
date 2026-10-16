@@ -1,0 +1,192 @@
+@using Resto.Client.Services
+@inject ChatbotService ChatbotService
+@rendermode InteractiveServer
+
+<!-- ── Floating chat bubble ────────────────────────────────────────────────── -->
+<div class="chatbot-wrapper">
+
+    @if (IsOpen)
+    {
+        <!-- Chat window -->
+        <div class="chatbot-window">
+
+            <!-- Header -->
+            <div class="chatbot-header">
+                <div class="chatbot-header-info">
+                    <div class="chatbot-avatar">🤖</div>
+                    <div>
+                        <div class="chatbot-title">RESTO Assistant</div>
+                        <div class="chatbot-subtitle">Ask me about the system</div>
+                    </div>
+                </div>
+                <button class="chatbot-close" @onclick="ToggleChat" title="Close">✕</button>
+            </div>
+
+            <!-- Messages -->
+            <div class="chatbot-messages" id="chatbot-messages">
+                @foreach (var msg in Messages)
+                {
+                    <div class="chat-message @(msg.IsUser ? "user-message" : "bot-message")">
+                        @if (!msg.IsUser)
+                        {
+                            <div class="bot-avatar">🤖</div>
+                        }
+                        <div class="message-bubble @(msg.IsUser ? "user-bubble" : "bot-bubble")">
+                            @foreach (var line in msg.Text.Split('\n'))
+                            {
+                                <span>@line</span><br />
+                            }
+                        </div>
+                    </div>
+                }
+
+                @if (IsTyping)
+                {
+                    <div class="chat-message bot-message">
+                        <div class="bot-avatar">🤖</div>
+                        <div class="message-bubble bot-bubble typing-indicator">
+                            <span></span><span></span><span></span>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <!-- Quick suggestions -->
+            @if (Messages.Count <= 1)
+            {
+                <div class="chatbot-suggestions">
+                    @foreach (var suggestion in Suggestions)
+                    {
+                        <button class="suggestion-chip" @onclick="() => SendSuggestion(suggestion)">
+                            @suggestion
+                        </button>
+                    }
+                </div>
+            }
+
+            <!-- Input -->
+            <div class="chatbot-input-area">
+                <input class="chatbot-input"
+                       placeholder="Ask about RESTO..."
+                       @bind="UserInput"
+                       @bind:event="oninput"
+                       @onkeydown="HandleKeyDown"
+                       maxlength="200"
+                       disabled="@IsTyping" />
+                <button class="chatbot-send"
+                        @onclick="SendMessage"
+                        disabled="@(string.IsNullOrWhiteSpace(UserInput) || IsTyping)"
+                        title="Send">
+                    ➤
+                </button>
+            </div>
+        </div>
+    }
+
+    <!-- Floating button -->
+    <button class="chatbot-fab @(HasUnread ? "has-unread" : "")"
+            @onclick="ToggleChat"
+            title="RESTO Assistant">
+        @if (IsOpen)
+        {
+            <span>✕</span>
+        }
+        else
+        {
+            <span>🤖</span>
+        }
+        @if (HasUnread && !IsOpen)
+        {
+            <div class="unread-dot"></div>
+        }
+    </button>
+
+</div>
+
+@code {
+    // ── State ──────────────────────────────────────────────────────────────────
+
+    private bool   IsOpen    = false;
+    private bool   IsTyping  = false;
+    private bool   HasUnread = false;
+    private string UserInput = string.Empty;
+
+    private List<ChatMessage> Messages = new();
+
+    private static readonly string[] Suggestions = new[]
+    {
+        "How do I place an order?",
+        "What payment methods are available?",
+        "How to manage inventory?",
+        "How to view the dashboard?",
+        "How do notifications work?",
+    };
+
+    // ── Lifecycle ──────────────────────────────────────────────────────────────
+
+    protected override void OnInitialized()
+    {
+        // Welcome message on first load
+        Messages.Add(new ChatMessage
+        {
+            Text   = "Hello! 👋 I'm the RESTO Assistant.\nI can answer questions about the RESTO Management System.\n\nWhat would you like to know?",
+            IsUser = false,
+            Time   = DateTime.Now,
+        });
+    }
+
+    // ── Handlers ───────────────────────────────────────────────────────────────
+
+    private void ToggleChat()
+    {
+        IsOpen    = !IsOpen;
+        HasUnread = false;
+    }
+
+    private async Task HandleKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter" && !string.IsNullOrWhiteSpace(UserInput))
+            await SendMessage();
+    }
+
+    private async Task SendSuggestion(string text)
+    {
+        UserInput = text;
+        await SendMessage();
+    }
+
+    private async Task SendMessage()
+    {
+        var text = UserInput.Trim();
+        if (string.IsNullOrWhiteSpace(text)) return;
+
+        // Add user message
+        Messages.Add(new ChatMessage { Text = text, IsUser = true, Time = DateTime.Now });
+        UserInput = string.Empty;
+        IsTyping  = true;
+        StateHasChanged();
+
+        // Simulate typing delay for natural feel
+        await Task.Delay(600);
+
+        // Get bot response
+        var response = ChatbotService.GetResponse(text);
+        Messages.Add(new ChatMessage { Text = response, IsUser = false, Time = DateTime.Now });
+
+        IsTyping = false;
+
+        if (!IsOpen)
+            HasUnread = true;
+
+        StateHasChanged();
+    }
+
+    // ── Model ──────────────────────────────────────────────────────────────────
+
+    private class ChatMessage
+    {
+        public string   Text   { get; set; } = string.Empty;
+        public bool     IsUser { get; set; }
+        public DateTime Time   { get; set; }
+    }
+}

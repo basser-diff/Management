@@ -1,0 +1,41 @@
+@rendermode InteractiveServer
+@inject AuthService AuthService
+@inject NavigationManager Nav
+
+@if (_checked && AuthService.IsAuthenticated)
+{
+    @ChildContent
+}
+else if (_checked && !AuthService.IsAuthenticated)
+{
+    @* redirect fired in OnAfterRenderAsync — show nothing *@
+}
+else
+{
+    @* first SSR pass — render the content optimistically so the page
+       doesn't flash a blank screen; the interactive check corrects it *@
+    @ChildContent
+}
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    private bool _checked = false;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _checked = true;
+            if (!AuthService.IsAuthenticated)
+            {
+                Nav.NavigateTo("/manager/login", forceLoad: true);
+            }
+            else
+            {
+                StateHasChanged();
+            }
+            await Task.CompletedTask;
+        }
+    }
+}

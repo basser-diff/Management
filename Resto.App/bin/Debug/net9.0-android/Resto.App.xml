@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Resto.App</name>
+    </assembly>
+    <members>
+        <member name="T:Resto.App.Data.AppDatabase">
+            <summary>
+            SQLite local database for the RESTO customer mobile app.
+            Stores: FoodItems (menu), CustomerOrders, CartItems, CustomerNotifications.
+            The database file lives in the app's local data directory on each device.
+            </summary>
+        </member>
+        <member name="T:Resto.App.Models.FoodItemEntity">
+            <summary>SQLite table for menu items.</summary>
+        </member>
+        <member name="T:Resto.App.Models.CustomerOrderEntity">
+            <summary>SQLite table for customer orders (header).</summary>
+        </member>
+        <member name="T:Resto.App.Models.OrderLineEntity">
+            <summary>SQLite table for individual items within an order.</summary>
+        </member>
+        <member name="T:Resto.App.Models.NotificationEntity">
+            <summary>SQLite table for in-app notifications.</summary>
+        </member>
+        <member name="T:Resto.App.Pages.PaymentPage">
+            <summary>
+            Payment page — collects card details, encrypts them client-side,
+            sends to Resto.API, and shows the result.
+            </summary>
+        </member>
+        <member name="T:Resto.App.Services.AppDataService">
+            <summary>
+            Customer app data service backed by a local SQLite database.
+            Menu, orders, and notifications all persist across app restarts.
+            Cart remains in-memory (session-only by design).
+            </summary>
+        </member>
+        <member name="T:Resto.App.Services.PaymentService">
+             <summary>
+             Handles AES-256-CBC encryption of card data and communication
+             with the Resto.API /api/payment/process endpoint.
+            
+             Security model:
+               • Card number, expiry, and CVV are AES-256-CBC encrypted on device
+                 before any network call is made.
+               • A fresh random 16-byte IV is generated for every transaction.
+               • Raw card data is cleared from memory immediately after encryption.
+               • All traffic travels over HTTPS.
+             </summary>
+        </member>
+        <member name="M:Resto.App.Services.PaymentService.ProcessCardPaymentAsync(Resto.App.Models.CardPaymentInput,System.Decimal,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Encrypts the card input, sends it to Resto.API, and returns the result.
+            Throws <see cref="T:Resto.App.Services.PaymentException"/> on network or API errors.
+            </summary>
+        </member>
+        <member name="T:Resto.App.Resource">
+            <summary>
+            Android Resource Designer class.
+            Exposes the Android Resource designer assembly into the project Namespace.
+            </summary>
+        </member>
+    </members>
+</doc>

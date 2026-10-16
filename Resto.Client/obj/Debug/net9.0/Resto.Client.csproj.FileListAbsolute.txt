@@ -1,0 +1,8 @@
+D:\Mga sawi sa pag ibig\RestaurantManagementSystem\Resto.Client\obj\Debug\net9.0\Resto.Client.csproj.AssemblyReference.cache
+D:\Mga sawi sa pag ibig\RestaurantManagementSystem\Resto.Client\obj\Debug\net9.0\rpswa.dswa.cache.json
+D:\Mga sawi sa pag ibig\RestaurantManagementSystem\Resto.Client\obj\Debug\net9.0\Resto.Client.GeneratedMSBuildEditorConfig.editorconfig
+D:\Mga sawi sa pag ibig\RestaurantManagementSystem\Resto.Client\obj\Debug\net9.0\Resto.Client.AssemblyInfoInputs.cache
+D:\Mga sawi sa pag ibig\RestaurantManagementSystem\Resto.Client\obj\Debug\net9.0\Resto.Client.AssemblyInfo.cs
+D:\Mga sawi sa pag ibig\RestaurantManagementSystem\Resto.Client\obj\Debug\net9.0\Resto.Client.csproj.CoreCompileInputs.cache
+D:\Mga sawi sa pag ibig\RestaurantManagementSystem\Resto.Client\obj\Debug\net9.0\Resto.Client.MvcApplicationPartsAssemblyInfo.cs
+D:\Mga sawi sa pag ibig\RestaurantManagementSystem\Resto.Client\obj\Debug\net9.0\Resto.Client.MvcApplicationPartsAssemblyInfo.cache

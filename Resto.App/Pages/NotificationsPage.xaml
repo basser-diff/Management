@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Resto.App.Pages.NotificationsPage"
+             Title="Notifications"
+             BackgroundColor="#f4f6fb">
+
+    <Grid RowDefinitions="Auto,*">
+
+        <!-- Header -->
+        <Grid Grid.Row="0" BackgroundColor="#b71c1c" Padding="20,16"
+              ColumnDefinitions="*,Auto">
+            <VerticalStackLayout Grid.Column="0" Spacing="2">
+                <Label Text="Notifications 🔔" FontSize="22" FontAttributes="Bold" TextColor="White"/>
+                <Label x:Name="UnreadLabel" FontSize="12" TextColor="#CCFFFFFF"/>
+            </VerticalStackLayout>
+            <Button Grid.Column="1"
+                    Text="Mark All Read"
+                    FontSize="11"
+                    BackgroundColor="#33FFFFFF"
+                    TextColor="White"
+                    CornerRadius="8"
+                    Padding="10,6"
+                    VerticalOptions="Center"
+                    Clicked="OnMarkAllReadClicked"/>
+        </Grid>
+
+        <!-- Empty state -->
+        <VerticalStackLayout Grid.Row="1" x:Name="EmptyState"
+                             IsVisible="False"
+                             VerticalOptions="Center" HorizontalOptions="Center"
+                             Spacing="12" Padding="40">
+            <Label Text="🔔" FontSize="64" HorizontalOptions="Center"/>
+            <Label Text="No notifications" FontSize="18" FontAttributes="Bold"
+                   TextColor="#555" HorizontalOptions="Center"/>
+            <Label Text="Order status updates and alerts will appear here."
+                   FontSize="13" TextColor="#888" HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center"/>
+        </VerticalStackLayout>
+
+        <!-- Notifications list -->
+        <CollectionView Grid.Row="1" x:Name="NotifList" SelectionMode="None">
+            <CollectionView.Header>
+                <BoxView HeightRequest="8" Color="Transparent"/>
+            </CollectionView.Header>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <SwipeView>
+                        <!-- Swipe left to delete -->
+                        <SwipeView.RightItems>
+                            <SwipeItems>
+                                <SwipeItem Text="Delete" BackgroundColor="#d32f2f"
+                                           IconImageSource="trash_icon.png"
+                                           CommandParameter="{Binding .}"
+                                           Invoked="OnDeleteSwipe"/>
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+
+                        <Border Margin="16,0,16,10" StrokeThickness="0" Padding="14">
+                            <Border.BackgroundColor>
+                                <Binding Path="IsRead">
+                                    <Binding.Converter>
+                                        <x:StaticResource Key="ReadToBgConverter"/>
+                                    </Binding.Converter>
+                                </Binding>
+                            </Border.BackgroundColor>
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="14"/>
+                            </Border.StrokeShape>
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                      Tapped="OnNotifTapped"/>
+                            </Border.GestureRecognizers>
+                            <Grid ColumnDefinitions="48,*,Auto" ColumnSpacing="12">
+                                <!-- Icon -->
+                                <Border Grid.Column="0"
+                                        StrokeThickness="0"
+                                        WidthRequest="44" HeightRequest="44"
+                                        VerticalOptions="Start">
+                                    <Border.BackgroundColor>
+                                        <Binding Path="Type">
+                                            <Binding.Converter>
+                                                <x:StaticResource Key="TypeToIconBgConverter"/>
+                                            </Binding.Converter>
+                                        </Binding>
+                                    </Border.BackgroundColor>
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="12"/>
+                                    </Border.StrokeShape>
+                                    <Label Text="{Binding Type, Converter={StaticResource TypeToEmojiConverter}}"
+                                           FontSize="20" HorizontalOptions="Center"
+                                           VerticalOptions="Center"/>
+                                </Border>
+                                <!-- Content -->
+                                <VerticalStackLayout Grid.Column="1" Spacing="3">
+                                    <HorizontalStackLayout Spacing="8">
+                                        <Label Text="{Binding Title}"
+                                               FontSize="13" FontAttributes="Bold"
+                                               TextColor="#1a1a1a"
+                                               HorizontalOptions="StartAndExpand"/>
+                                        <!-- Unread dot -->
+                                        <Ellipse WidthRequest="8" HeightRequest="8"
+                                                 Fill="#b71c1c" VerticalOptions="Center"
+                                                 IsVisible="{Binding IsRead, Converter={StaticResource InverseBoolConverter}}"/>
+                                    </HorizontalStackLayout>
+                                    <Label Text="{Binding Message}"
+                                           FontSize="12" TextColor="#666"
+                                           LineBreakMode="WordWrap"/>
+                                    <Label Text="{Binding CreatedAt, StringFormat='{0:MMM dd, hh:mm tt}'}"
+                                           FontSize="10" TextColor="#aaa"/>
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Border>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
+</ContentPage>

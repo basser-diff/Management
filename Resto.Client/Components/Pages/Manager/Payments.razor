@@ -1,0 +1,279 @@
+@page "/manager/payments"
+@layout ManagerLayout
+@rendermode InteractiveServer
+@inject DataService DataService
+@inject AuthService AuthService
+@inject NavigationManager Nav
+
+<PageTitle>Payments — RESTO</PageTitle>
+
+<!-- ── Header ───────────────────────────────────────────────────────────── -->
+<div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
+    <div>
+        <h4 class="fw-bold mb-0">Payments</h4>
+        <small class="text-muted">Track all payment transactions</small>
+    </div>
+    <div class="text-muted small">
+        <i class="bi bi-calendar3 me-1"></i>@DateTime.Now.ToString("MMMM dd, yyyy")
+    </div>
+</div>
+
+<!-- ── Summary cards ─────────────────────────────────────────────────────── -->
+<div class="row g-3 mb-3">
+    <div class="col-12 col-sm-4">
+        <div class="card border-0 shadow-sm text-center py-3">
+            <div class="fs-3 fw-bold text-success">
+                ₱@DataService.Payments.Where(p => p.Status == PaymentStatus.Paid).Sum(p => p.Amount).ToString("N0")
+            </div>
+            <div class="small text-muted">Total Collected</div>
+            <div class="text-muted" style="font-size:11px;">
+                @DataService.Payments.Count(p => p.Status == PaymentStatus.Paid) transactions
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-sm-4">
+        <div class="card border-0 shadow-sm text-center py-3">
+            <div class="fs-3 fw-bold text-warning">
+                @DataService.Payments.Count(p => p.Status == PaymentStatus.Pending)
+            </div>
+            <div class="small text-muted">Pending</div>
+        </div>
+    </div>
+    <div class="col-12 col-sm-4">
+        <div class="card border-0 shadow-sm text-center py-3">
+            <div class="fs-3 fw-bold text-danger">
+                @DataService.Payments.Count(p => p.Status == PaymentStatus.Failed)
+            </div>
+            <div class="small text-muted">Failed</div>
+        </div>
+    </div>
+</div>
+
+<!-- ── Filters ───────────────────────────────────────────────────────────── -->
+<div class="card border-0 shadow-sm mb-3">
+    <div class="card-body py-2">
+        <div class="row g-2 align-items-center">
+            <div class="col-12 col-md-5">
+                <div class="input-group input-group-sm">
+                    <span class="input-group-text bg-light border-end-0">
+                        <i class="bi bi-search text-muted"></i>
+                    </span>
+                    <input type="text" class="form-control border-start-0"
+                           placeholder="Search customer, order, or ref..."
+                           @bind="_search" @bind:event="oninput" />
+                </div>
+            </div>
+            <div class="col-12 col-md-7">
+                <div class="d-flex gap-2 flex-wrap">
+                    <button class="btn btn-sm @(_filterStatus == "" ? "btn-danger" : "btn-outline-secondary")"
+                            @onclick='() => _filterStatus = ""'>All</button>
+                    <button class="btn btn-sm @(_filterStatus == "Paid" ? "btn-success" : "btn-outline-success")"
+                            @onclick='() => _filterStatus = "Paid"'>Paid</button>
+                    <button class="btn btn-sm @(_filterStatus == "Pending" ? "btn-warning" : "btn-outline-warning")"
+                            @onclick='() => _filterStatus = "Pending"'>Pending</button>
+                    <button class="btn btn-sm @(_filterStatus == "Failed" ? "btn-danger" : "btn-outline-danger")"
+                            @onclick='() => _filterStatus = "Failed"'>Failed</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ── Payments Table ────────────────────────────────────────────────────── -->
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0 align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th class="ps-3">#</th>
+                        <th>Transaction Ref</th>
+                        <th>Order</th>
+                        <th>Customer</th>
+                        <th>Method</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var pay in FilteredPayments)
+                    {
+                        <tr>
+                            <td class="ps-3 text-muted small">@pay.Id</td>
+                            <td class="small font-monospace text-muted">@pay.TransactionRef</td>
+                            <td class="fw-semibold text-danger">#@pay.OrderId</td>
+                            <td class="small">@pay.CustomerName</td>
+                            <td>
+                                <span class="badge @(pay.Method == "Card" ? "bg-primary-subtle text-primary" : "bg-secondary-subtle text-secondary") border">
+                                    <i class="bi @(pay.Method == "Card" ? "bi-credit-card" : "bi-cash") me-1"></i>
+                                    @pay.Method
+                                </span>
+                            </td>
+                            <td class="fw-semibold">₱@pay.Amount.ToString("N2")</td>
+                            <td class="small text-muted">@pay.TransactionDate.ToString("MMM dd, hh:mm tt")</td>
+                            <td>
+                                <span class="badge @GetBadge(pay.Status)">@pay.Status</span>
+                            </td>
+                            <td class="text-center">
+                                <button class="btn btn-sm btn-outline-danger"
+                                        @onclick="() => _viewPayment = pay"
+                                        title="View details">
+                                    <i class="bi bi-eye"></i> View
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                    @if (!FilteredPayments.Any())
+                    {
+                        <tr>
+                            <td colspan="9" class="text-center py-5 text-muted">
+                                <i class="bi bi-inbox fs-1 d-block mb-2"></i>No payment records found.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@if (_viewPayment is not null)
+{
+    <div class="modal-backdrop-custom" @onclick="() => _viewPayment = null"></div>
+    <div class="modal-panel card border-0 shadow-lg p-4" style="max-width:440px;">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h5 class="fw-bold mb-0">Payment Details</h5>
+            <button class="btn-close" @onclick="() => _viewPayment = null"></button>
+        </div>
+
+        <div class="receipt-card p-3 rounded-3 mb-3">
+            <div class="text-center mb-3">
+                <div class="receipt-logo mx-auto mb-1">
+                    <i class="bi bi-shop-window"></i>
+                </div>
+                <div class="fw-bold">RESTO — Sariling Atin</div>
+                <div class="text-muted small">Official Receipt</div>
+            </div>
+            <hr class="border-dashed" />
+            <div class="row g-2 small">
+                <div class="col-6 text-muted">Transaction Ref</div>
+                <div class="col-6 fw-semibold font-monospace text-end small">@_viewPayment.TransactionRef</div>
+                <div class="col-6 text-muted">Order ID</div>
+                <div class="col-6 fw-semibold text-end">#@_viewPayment.OrderId</div>
+                <div class="col-6 text-muted">Customer</div>
+                <div class="col-6 fw-semibold text-end">@_viewPayment.CustomerName</div>
+                <div class="col-6 text-muted">Payment Method</div>
+                <div class="col-6 fw-semibold text-end">@_viewPayment.Method</div>
+                <div class="col-6 text-muted">Date</div>
+                <div class="col-6 fw-semibold text-end">@_viewPayment.TransactionDate.ToString("MMM dd, yyyy hh:mm tt")</div>
+            </div>
+            <hr class="border-dashed" />
+            <div class="d-flex justify-content-between fw-bold fs-5">
+                <span>Total</span>
+                <span class="text-danger">₱@_viewPayment.Amount.ToString("N2")</span>
+            </div>
+            <div class="text-center mt-2">
+                <span class="badge @GetBadge(_viewPayment.Status) px-3 py-2">
+                    @_viewPayment.Status
+                </span>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label small fw-semibold">Update Status</label>
+            <div class="d-flex gap-2">
+                @foreach (PaymentStatus s in Enum.GetValues<PaymentStatus>())
+                {
+                    <button class="btn btn-sm flex-grow-1 @(s == _viewPayment.Status ? GetBadge(s).Replace("bg-","btn-") : "btn-outline-secondary")"
+                            @onclick="() => UpdatePayStatus(_viewPayment, s)">
+                        @s
+                    </button>
+                }
+            </div>
+        </div>
+
+        <button class="btn btn-light w-100" @onclick="() => _viewPayment = null">Close</button>
+    </div>
+}
+
+@code {
+    private string   _search        = string.Empty;
+    private string   _filterStatus  = string.Empty;
+    private Payment? _viewPayment   = null;
+
+    protected override void OnInitialized()
+    {
+        DataService.OnChange += StateHasChanged;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && !AuthService.IsAuthenticated)
+        {
+            Nav.NavigateTo("/manager/login", forceLoad: true);
+            await Task.CompletedTask;
+        }
+    }
+
+    public void Dispose() => DataService.OnChange -= StateHasChanged;
+
+    private IEnumerable<Payment> FilteredPayments =>
+        DataService.Payments
+            .Where(p => string.IsNullOrEmpty(_search)
+                        || p.CustomerName.Contains(_search, StringComparison.OrdinalIgnoreCase)
+                        || p.TransactionRef.Contains(_search, StringComparison.OrdinalIgnoreCase)
+                        || p.OrderId.ToString().Contains(_search))
+            .Where(p => string.IsNullOrEmpty(_filterStatus) || p.Status.ToString() == _filterStatus)
+            .OrderByDescending(p => p.TransactionDate);
+
+    private void UpdatePayStatus(Payment pay, PaymentStatus status)
+    {
+        DataService.UpdatePaymentStatus(pay.Id, status);
+        pay.Status = status;
+    }
+
+    private string GetBadge(PaymentStatus s) => s switch
+    {
+        PaymentStatus.Paid    => "bg-success",
+        PaymentStatus.Failed  => "bg-danger",
+        _                     => "bg-warning text-dark",
+    };
+}
+
+<style>
+    .receipt-card {
+        background: #f8f9fa;
+        border: 1px dashed #dee2e6;
+    }
+    .receipt-logo {
+        width: 40px; height: 40px;
+        background: linear-gradient(135deg,#d32f2f,#b71c1c);
+        border-radius: 10px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 20px; color: white;
+    }
+    .border-dashed { border-style: dashed !important; }
+    .modal-backdrop-custom {
+        position: fixed; inset: 0;
+        background: rgba(0,0,0,0.45);
+        z-index: 1040;
+    }
+    .modal-panel {
+        position: fixed;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1050;
+        width: 95%;
+        max-width: 520px;
+        max-height: 90vh;
+        overflow-y: auto;
+        border-radius: 16px;
+        animation: slideIn 0.25s ease-out;
+    }
+    @@keyframes slideIn {
+        from { opacity: 0; transform: translate(-50%,-45%); }
+        to   { opacity: 1; transform: translate(-50%,-50%); }
+    }
+</style>

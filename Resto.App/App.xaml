@@ -1,0 +1,22 @@
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Resto.App"
+             xmlns:conv="clr-namespace:Resto.App.Converters"
+             x:Class="Resto.App.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- Global value converters -->
+            <conv:InverseBoolConverter    x:Key="InverseBoolConverter"/>
+            <conv:ReadToBgConverter       x:Key="ReadToBgConverter"/>
+            <conv:TypeToEmojiConverter    x:Key="TypeToEmojiConverter"/>
+            <conv:TypeToIconBgConverter   x:Key="TypeToIconBgConverter"/>
+            <conv:ItemsSummaryConverter   x:Key="ItemsSummaryConverter"/>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

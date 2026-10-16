@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#b71c1c"/>
+      <stop offset="100%" style="stop-color:#7f0000"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" fill="url(#bg)"/>
+  <!-- Plate -->
+  <ellipse cx="200" cy="230" rx="90" ry="18" fill="rgba(255,255,255,0.12)"/>
+  <ellipse cx="200" cy="220" rx="80" ry="50" fill="white" opacity="0.92"/>
+  <!-- Fork -->
+  <rect x="110" y="120" width="10" height="65" rx="5" fill="#b71c1c"/>
+  <rect x="110" y="105" width="5" height="25" rx="2.5" fill="#b71c1c"/>
+  <rect x="121" y="105" width="5" height="25" rx="2.5" fill="#b71c1c"/>
+  <!-- Knife -->
+  <rect x="280" y="105" width="10" height="80" rx="5" fill="#b71c1c"/>
+  <path d="M280 105 Q290 125 290 140 L280 140 Z" fill="#c62828"/>
+  <!-- Steam -->
+  <path d="M170 200 Q178 182 170 165 Q178 148 170 130" stroke="rgba(183,28,28,0.3)" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <path d="M200 196 Q208 178 200 161 Q208 144 200 126" stroke="rgba(183,28,28,0.3)" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <path d="M230 200 Q238 182 230 165 Q238 148 230 130" stroke="rgba(183,28,28,0.3)" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <!-- RESTO text -->
+  <text x="200" y="315" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="48" fill="white" letter-spacing="8">RESTO</text>
+  <text x="200" y="345" text-anchor="middle" font-family="Arial,sans-serif" font-weight="400" font-size="16" fill="rgba(255,255,255,0.75)" letter-spacing="2">SARILING ATIN</text>
+</svg>

@@ -1,0 +1,260 @@
+@page "/manager/notifications"
+@layout ManagerLayout
+@rendermode InteractiveServer
+@inject DataService DataService
+@inject AuthService AuthService
+@inject NavigationManager Nav
+
+<PageTitle>Notifications — RESTO</PageTitle>
+
+<!-- ── Header ───────────────────────────────────────────────────────────── -->
+<div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
+    <div>
+        <h4 class="fw-bold mb-0">Notifications</h4>
+        <small class="text-muted">System alerts and order updates</small>
+    </div>
+    @if (DataService.UnreadNotificationCount > 0)
+    {
+        <button class="btn btn-sm btn-outline-danger" @onclick="DataService.MarkAllRead">
+            <i class="bi bi-check2-all me-1"></i> Mark all as read
+        </button>
+    }
+</div>
+
+<div class="row g-3">
+    <!-- ── Notification List ────────────────────────────────────────────── -->
+    <div class="col-12 col-lg-7">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white border-0 d-flex align-items-center justify-content-between pt-3 pb-0">
+                <h6 class="fw-bold mb-0">Recent Alerts</h6>
+                <span class="badge bg-danger-subtle text-danger border border-danger-subtle">
+                    @DataService.Notifications.Count
+                </span>
+            </div>
+            <div class="card-body p-0">
+                @if (!DataService.Notifications.Any())
+                {
+                    <div class="text-center py-5 text-muted">
+                        <i class="bi bi-bell-slash fs-1 d-block mb-2"></i>
+                        No notifications yet.
+                    </div>
+                }
+                @foreach (var notif in DataService.Notifications.OrderByDescending(n => n.CreatedAt))
+                {
+                    <div class="notification-item d-flex gap-3 p-3 border-bottom @(notif.IsRead ? "" : "unread-notif")"
+                         @onclick="() => DataService.MarkRead(notif.Id)">
+                        <div class="notif-icon @GetIconClass(notif.Type)">
+                            <i class="bi @GetIcon(notif.Type)"></i>
+                        </div>
+                        <div class="flex-grow-1 overflow-hidden">
+                            <div class="d-flex align-items-center justify-content-between gap-2">
+                                <div class="fw-semibold small @(notif.IsRead ? "text-muted" : "")">
+                                    @notif.Title
+                                    @if (!notif.IsRead)
+                                    {
+                                        <span class="ms-1 badge bg-danger" style="font-size:8px;">NEW</span>
+                                    }
+                                </div>
+                                <small class="text-muted flex-shrink-0">@GetTimeAgo(notif.CreatedAt)</small>
+                            </div>
+                            <div class="small text-muted mt-1 text-truncate">@notif.Message</div>
+                        </div>
+                        <button class="btn btn-sm text-muted p-0 ms-1 flex-shrink-0"
+                                @onclick:stopPropagation="true"
+                                @onclick="() => DataService.DeleteNotification(notif.Id)"
+                                title="Dismiss">
+                            <i class="bi bi-x"></i>
+                        </button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Notification Settings ────────────────────────────────────────── -->
+    <div class="col-12 col-lg-5">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white border-0 pt-3 pb-0">
+                <h6 class="fw-bold mb-0">
+                    <i class="bi bi-sliders me-1 text-danger"></i> Notification Settings
+                </h6>
+                <small class="text-muted">Customize alert preferences</small>
+            </div>
+            <div class="card-body">
+
+                <!-- Sound toggle -->
+                <div class="d-flex align-items-center justify-content-between mb-4 p-3 bg-light rounded-3">
+                    <div>
+                        <div class="fw-semibold">
+                            <i class="bi @(DataService.SoundEnabled ? "bi-volume-up" : "bi-volume-mute") me-2 text-danger"></i>
+                            Notification Sound
+                        </div>
+                        <small class="text-muted">Play a sound when a new alert arrives</small>
+                    </div>
+                    <div class="form-check form-switch ms-3 mb-0">
+                        <input class="form-check-input" type="checkbox" role="switch"
+                               style="width:2.5em;height:1.4em;"
+                               id="soundToggle"
+                               checked="@DataService.SoundEnabled"
+                               @onchange="e => DataService.SoundEnabled = (bool)(e.Value ?? false)" />
+                        <label class="form-check-label visually-hidden" for="soundToggle">Sound</label>
+                    </div>
+                </div>
+
+                <!-- Sound type -->
+                <div class="mb-4">
+                    <label class="form-label fw-semibold small">Sound Type</label>
+                    <div class="d-flex gap-2 flex-wrap">
+                        @foreach (var sound in new[] { "Chime","Bell","Ping","Ding","Alert" })
+                        {
+                            <button class="btn btn-sm @(DataService.SoundType == sound ? "btn-danger" : "btn-outline-secondary")"
+                                    disabled="@(!DataService.SoundEnabled)"
+                                    @onclick="() => DataService.SoundType = sound">
+                                <i class="bi bi-music-note me-1"></i>@sound
+                            </button>
+                        }
+                    </div>
+                </div>
+
+                <!-- Volume slider -->
+                <div class="mb-4">
+                    <div class="d-flex justify-content-between mb-1">
+                        <label class="form-label fw-semibold small mb-0">Volume</label>
+                        <span class="small text-muted">@DataService.SoundVolume%</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-volume-off text-muted"></i>
+                        <input type="range" class="form-range flex-grow-1"
+                               min="0" max="100" step="5"
+                               disabled="@(!DataService.SoundEnabled)"
+                               value="@DataService.SoundVolume"
+                               @onchange="OnVolumeChange" />
+                        <i class="bi bi-volume-up text-muted"></i>
+                    </div>
+                </div>
+
+                <!-- Alert type toggles -->
+                <div class="mb-3">
+                    <label class="form-label fw-semibold small">Alert Types</label>
+                    <div class="d-flex flex-column gap-2">
+                        @foreach (var alertType in AlertTypes)
+                        {
+                            <div class="d-flex align-items-center justify-content-between p-2 rounded-3 bg-light">
+                                <div class="small">
+                                    <i class="bi @alertType.Icon me-2 text-danger"></i>@alertType.Label
+                                </div>
+                                <div class="form-check form-switch mb-0">
+                                    <input class="form-check-input" type="checkbox" role="switch"
+                                           checked="true" disabled="@(!DataService.SoundEnabled)" />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <button class="btn btn-danger w-100" @onclick="SaveSettings">
+                    <i class="bi bi-check-lg me-1"></i> Save Settings
+                </button>
+
+                @if (_settingsSaved)
+                {
+                    <div class="alert alert-success py-2 mt-2 small text-center">
+                        <i class="bi bi-check-circle me-1"></i>Settings saved!
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private bool _settingsSaved = false;
+
+    private record AlertTypeItem(string Label, string Icon);
+
+    private static readonly AlertTypeItem[] AlertTypes =
+    {
+        new("New Orders",              "bi-bag-plus"),
+        new("Payment Confirmations",   "bi-credit-card-2-front"),
+        new("Low Stock Alerts",        "bi-exclamation-triangle"),
+        new("Order Ready Alerts",      "bi-bag-check"),
+    };
+
+    protected override void OnInitialized()
+    {
+        DataService.OnChange += StateHasChanged;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && !AuthService.IsAuthenticated)
+        {
+            Nav.NavigateTo("/manager/login", forceLoad: true);
+            await Task.CompletedTask;
+        }
+    }
+
+    public void Dispose() => DataService.OnChange -= StateHasChanged;
+
+    private void OnVolumeChange(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value?.ToString(), out var vol))
+            DataService.SoundVolume = vol;
+    }
+
+    private async Task SaveSettings()
+    {
+        _settingsSaved = true;
+        StateHasChanged();
+        await Task.Delay(2000);
+        _settingsSaved = false;
+        StateHasChanged();
+    }
+
+    private string GetTimeAgo(DateTime dt)
+    {
+        var diff = DateTime.Now - dt;
+        if (diff.TotalMinutes < 1)  return "Just now";
+        if (diff.TotalMinutes < 60) return $"{(int)diff.TotalMinutes}m ago";
+        if (diff.TotalHours   < 24) return $"{(int)diff.TotalHours}h ago";
+        return $"{(int)diff.TotalDays}d ago";
+    }
+
+    private string GetIcon(NotificationType t) => t switch
+    {
+        NotificationType.NewOrder          => "bi-bag-plus-fill",
+        NotificationType.PaymentConfirmed  => "bi-credit-card-2-front-fill",
+        NotificationType.LowStock          => "bi-exclamation-triangle-fill",
+        NotificationType.OrderReady        => "bi-bag-check-fill",
+        _                                  => "bi-bell-fill",
+    };
+
+    private string GetIconClass(NotificationType t) => t switch
+    {
+        NotificationType.NewOrder          => "notif-icon-order",
+        NotificationType.PaymentConfirmed  => "notif-icon-payment",
+        NotificationType.LowStock          => "notif-icon-stock",
+        NotificationType.OrderReady        => "notif-icon-ready",
+        _                                  => "notif-icon-general",
+    };
+}
+
+<style>
+    .notification-item {
+        cursor: pointer;
+        transition: background 0.15s;
+    }
+    .notification-item:hover { background: #f8f9fa; }
+    .unread-notif { background: #fff8f8; }
+
+    .notif-icon {
+        width: 40px; height: 40px; border-radius: 12px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 18px; flex-shrink: 0;
+    }
+    .notif-icon-order   { background: #e3f2fd; color: #1565c0; }
+    .notif-icon-payment { background: #e8f5e9; color: #2e7d32; }
+    .notif-icon-stock   { background: #fff8e1; color: #f57f17; }
+    .notif-icon-ready   { background: #e0f7fa; color: #00695c; }
+    .notif-icon-general { background: #f3e5f5; color: #6a1b9a; }
+</style>

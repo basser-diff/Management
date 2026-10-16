@@ -1,0 +1,104 @@
+﻿@page "/"
+@rendermode InteractiveServer
+@inject AuthService AuthService
+@inject NavigationManager Nav
+
+<PageTitle>RESTO — Sariling Atin Restaurant</PageTitle>
+
+<div class="landing-bg d-flex flex-column align-items-center justify-content-center min-vh-100 text-white text-center px-3">
+
+    <!-- Brand -->
+    <div class="landing-logo mb-3">
+        <img src="images/resto-logo.svg" alt="RESTO Logo" style="width:90px;height:90px;border-radius:24px;" />
+    </div>
+    <h1 class="display-5 fw-bold mb-1">RESTO</h1>
+    <p class="lead mb-1 opacity-75">Sariling Atin Restaurant</p>
+    <p class="mb-4 opacity-60 small">Hybrid Ordering &amp; Payment Management System</p>
+
+    <!-- CTA buttons -->
+    <div class="d-flex flex-wrap gap-3 justify-content-center mb-5">
+        <a href="/manager/login" class="btn btn-light btn-lg px-5 fw-semibold text-danger shadow">
+            <i class="bi bi-shield-lock me-2"></i>Manager Login
+        </a>
+    </div>
+
+    <!-- Feature cards -->
+    <div class="row g-3 justify-content-center" style="max-width:820px;width:100%;">
+        @foreach (var (icon, title, desc) in Features)
+        {
+            <div class="col-12 col-sm-6 col-md-4">
+                <div class="feature-card p-3 rounded-3 text-start">
+                    <div class="feature-icon mb-2"><i class="bi @icon"></i></div>
+                    <div class="fw-semibold small">@title</div>
+                    <div class="opacity-75" style="font-size:12px;">@desc</div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Footer note -->
+    <div class="mt-5 opacity-50 small">
+        Southern Christian College &middot; BSIT Capstone 2026
+    </div>
+</div>
+
+@code {
+    protected override void OnInitialized()
+    {
+        if (AuthService.IsAuthenticated)
+            Nav.NavigateTo("/manager/dashboard");
+    }
+
+    private static readonly (string Icon, string Title, string Desc)[] Features =
+    {
+        ("bi-speedometer2",   "Manager Dashboard",    "Real-time sales, expenses, and profit overview."),
+        ("bi-grid",           "Menu Management",      "Add, edit, and manage food products with ease."),
+        ("bi-receipt",        "Order Processing",     "Receive, confirm, and track customer orders."),
+        ("bi-boxes",          "Inventory Control",    "Monitor stock levels and prevent over-ordering."),
+        ("bi-credit-card",    "Payment Tracking",     "QuickPay integration for card and COP payments."),
+        ("bi-bell",           "Live Notifications",   "Instant alerts for new orders and low stock."),
+    };
+}
+
+<style>
+    .landing-bg {
+        background: linear-gradient(135deg, #7f0000 0%, #b71c1c 40%, #d32f2f 70%, #ef5350 100%);
+    }
+
+    .landing-logo {
+        width: 90px;
+        height: 90px;
+        background: rgba(255,255,255,0.15);
+        border-radius: 24px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 48px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        backdrop-filter: blur(4px);
+    }
+
+    .feature-card {
+        background: rgba(255,255,255,0.12);
+        border: 1px solid rgba(255,255,255,0.18);
+        backdrop-filter: blur(6px);
+        color: white;
+        transition: background 0.2s, transform 0.2s;
+    }
+
+    .feature-card:hover {
+        background: rgba(255,255,255,0.2);
+        transform: translateY(-2px);
+    }
+
+    .feature-icon {
+        width: 36px;
+        height: 36px;
+        background: rgba(255,255,255,0.2);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+    }
+</style>

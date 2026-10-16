@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:pages="clr-namespace:Resto.App.Pages"
+       x:Class="Resto.App.AppShell"
+       Shell.TabBarBackgroundColor="White"
+       Shell.TabBarForegroundColor="#b71c1c"
+       Shell.TabBarUnselectedColor="#aaaaaa"
+       Shell.TabBarTitleColor="#b71c1c">
+
+    <TabBar>
+
+        <!-- Home -->
+        <ShellContent Title="Home"
+                      Route="HomePage"
+                      ContentTemplate="{DataTemplate pages:HomePage}">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="Icons" Glyph="&#xf015;" Size="22"/>
+            </ShellContent.Icon>
+        </ShellContent>
+
+        <!-- Menu -->
+        <ShellContent Title="Menu"
+                      Route="MenuPage"
+                      ContentTemplate="{DataTemplate pages:MenuPage}">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="Icons" Glyph="&#xf2e7;" Size="22"/>
+            </ShellContent.Icon>
+        </ShellContent>
+
+        <!-- Cart -->
+        <ShellContent Title="Cart"
+                      Route="CartPage"
+                      ContentTemplate="{DataTemplate pages:CartPage}">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="Icons" Glyph="&#xf07a;" Size="22"/>
+            </ShellContent.Icon>
+        </ShellContent>
+
+        <!-- Orders -->
+        <ShellContent Title="Orders"
+                      Route="OrdersPage"
+                      ContentTemplate="{DataTemplate pages:OrdersPage}">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="Icons" Glyph="&#xf022;" Size="22"/>
+            </ShellContent.Icon>
+        </ShellContent>
+
+        <!-- Notifications -->
+        <ShellContent Title="Alerts"
+                      Route="NotificationsPage"
+                      x:Name="NotificationsTab"
+                      ContentTemplate="{DataTemplate pages:NotificationsPage}">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="Icons" Glyph="&#xf0f3;" Size="22"/>
+            </ShellContent.Icon>
+        </ShellContent>
+
+    </TabBar>
+</Shell>

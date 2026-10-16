@@ -1,0 +1,323 @@
+@inherits LayoutComponentBase
+@inject AuthService AuthService
+@inject DataService DataService
+@inject NavigationManager Nav
+@inject IJSRuntime JS
+@implements IAsyncDisposable
+
+<div class="manager-shell d-flex">
+
+    <!-- ── Sidebar ──────────────────────────────────────────────────── -->
+    <nav class="sidebar d-flex flex-column @(_sidebarCollapsed ? "sidebar-collapsed" : "")"
+         id="managerSidebar">
+
+        <!-- Brand -->
+        <div class="sidebar-brand d-flex align-items-center gap-2 px-3 py-3">
+            <div class="brand-icon">
+                <i class="bi bi-shop-window"></i>
+            </div>
+            @if (!_sidebarCollapsed)
+            {
+                <div>
+                    <div class="brand-name">RESTO</div>
+                    <div class="brand-sub">Sariling Atin</div>
+                </div>
+            }
+        </div>
+
+        <!-- Toggle button -->
+        <button class="sidebar-toggle btn btn-link text-white p-0 ms-auto me-3 mb-2"
+                @onclick="() => _sidebarCollapsed = !_sidebarCollapsed"
+                title="@(_sidebarCollapsed ? "Expand" : "Collapse") sidebar">
+            <i class="bi @(_sidebarCollapsed ? "bi-chevron-right" : "bi-chevron-left")"></i>
+        </button>
+
+        <!-- Nav items -->
+        <ul class="nav flex-column flex-grow-1 px-2">
+            <li class="nav-item">
+                <NavLink class="nav-link sidebar-link" href="/manager/dashboard"
+                         Match="NavLinkMatch.All">
+                    <i class="bi bi-speedometer2 nav-icon"></i>
+                    @if (!_sidebarCollapsed) { <span>Dashboard</span> }
+                </NavLink>
+            </li>
+            <li class="nav-item">
+                <NavLink class="nav-link sidebar-link" href="/manager/products">
+                    <i class="bi bi-grid nav-icon"></i>
+                    @if (!_sidebarCollapsed) { <span>Products</span> }
+                </NavLink>
+            </li>
+            <li class="nav-item">
+                <NavLink class="nav-link sidebar-link" href="/manager/orders">
+                    <i class="bi bi-receipt nav-icon"></i>
+                    @if (!_sidebarCollapsed) { <span>Orders</span> }
+                </NavLink>
+            </li>
+            <li class="nav-item">
+                <NavLink class="nav-link sidebar-link" href="/manager/inventory">
+                    <i class="bi bi-boxes nav-icon"></i>
+                    @if (!_sidebarCollapsed) { <span>Inventory</span> }
+                </NavLink>
+            </li>
+            <li class="nav-item">
+                <NavLink class="nav-link sidebar-link" href="/manager/payments">
+                    <i class="bi bi-credit-card nav-icon"></i>
+                    @if (!_sidebarCollapsed) { <span>Payments</span> }
+                </NavLink>
+            </li>
+            <li class="nav-item position-relative">
+                <NavLink class="nav-link sidebar-link" href="/manager/notifications">
+                    <i class="bi bi-bell nav-icon"></i>
+                    @if (!_sidebarCollapsed) { <span>Notifications</span> }
+                    @if (DataService.UnreadNotificationCount > 0)
+                    {
+                        <span class="badge bg-warning text-dark rounded-pill ms-auto notification-badge">
+                            @DataService.UnreadNotificationCount
+                        </span>
+                    }
+                </NavLink>
+            </li>
+            <li class="nav-item">
+                <NavLink class="nav-link sidebar-link" href="/manager/profile">
+                    <i class="bi bi-person-circle nav-icon"></i>
+                    @if (!_sidebarCollapsed) { <span>Profile</span> }
+                </NavLink>
+            </li>
+        </ul>
+
+        <!-- Manager info + logout -->
+        <div class="sidebar-footer px-3 py-3 border-top border-white border-opacity-10">
+            @if (!_sidebarCollapsed)
+            {
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <div class="manager-avatar">
+                        <i class="bi bi-person-fill"></i>
+                    </div>
+                    <div class="overflow-hidden">
+                        <div class="text-white fw-semibold text-truncate small">
+                            @AuthService.CurrentManager?.FullName
+                        </div>
+                        <div class="text-white-50 text-truncate" style="font-size:11px;">
+                            @AuthService.CurrentManager?.Email
+                        </div>
+                    </div>
+                </div>
+            }
+            <button class="btn btn-sm btn-outline-light w-100 @(_sidebarCollapsed ? "p-1" : "")"
+                    @onclick="Logout">
+                <i class="bi bi-box-arrow-left me-1"></i>
+                @if (!_sidebarCollapsed) { <span>Log Out</span> }
+            </button>
+        </div>
+    </nav>
+
+    <!-- ── Main content ────────────────────────────────────────────── -->
+    <div class="main-content flex-grow-1 d-flex flex-column">
+
+        <!-- Top bar -->
+        <header class="topbar d-flex align-items-center px-4 py-2 bg-white border-bottom shadow-sm">
+            <div class="me-auto">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-0 small">
+                        <li class="breadcrumb-item text-muted">RESTO</li>
+                        <li class="breadcrumb-item active text-danger fw-semibold">@_pageTitle</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                <a href="/manager/notifications" class="topbar-icon position-relative text-muted">
+                    <i class="bi bi-bell fs-5"></i>
+                    @if (DataService.UnreadNotificationCount > 0)
+                    {
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                              style="font-size:9px;">
+                            @DataService.UnreadNotificationCount
+                        </span>
+                    }
+                </a>
+                <div class="topbar-avatar d-flex align-items-center gap-2">
+                    <div class="avatar-circle">
+                        @(AuthService.CurrentManager?.FullName?.Substring(0,1).ToUpper() ?? "M")
+                    </div>
+                    <span class="small fw-semibold text-dark d-none d-md-inline">
+                        @AuthService.CurrentManager?.FullName
+                    </span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Page body -->
+        <main class="p-4 flex-grow-1" style="background:#f4f6fb; overflow-y:auto;">
+            @Body
+        </main>
+    </div>
+
+</div>
+
+<!-- Chatbot available on all manager pages -->
+<Chatbot />
+
+@code {
+    private bool   _sidebarCollapsed = false;
+    private string _pageTitle        = "Dashboard";
+    private int    _lastNotifCount   = -1;
+    private Timer? _pollTimer;
+
+    protected override void OnInitialized()
+    {
+        DataService.OnChange += StateHasChanged;
+        UpdateTitle(Nav.Uri);
+        Nav.LocationChanged += OnLocationChanged;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _lastNotifCount = DataService.UnreadNotificationCount;
+            // Poll DB every 10 seconds for new notifications
+            _pollTimer = new Timer(async _ => await PollNotificationsAsync(), null,
+                TimeSpan.FromSeconds(10), TimeSpan.FromSeconds(10));
+        }
+        await Task.CompletedTask;
+    }
+
+    private async Task PollNotificationsAsync()
+    {
+        try
+        {
+            var currentCount = DataService.UnreadNotificationCount;
+            if (currentCount > _lastNotifCount && _lastNotifCount >= 0)
+            {
+                // Get the newest unread notification to show in the toast
+                var newest = DataService.Notifications
+                    .Where(n => !n.IsRead)
+                    .OrderByDescending(n => n.CreatedAt)
+                    .FirstOrDefault();
+
+                if (newest is not null)
+                {
+                    await InvokeAsync(async () =>
+                    {
+                        // Play chime if sound is enabled
+                        if (DataService.SoundEnabled)
+                            await JS.InvokeVoidAsync("restoPlayChime", DataService.SoundType);
+
+                        // Show toast popup
+                        await JS.InvokeVoidAsync("restoShowToast",
+                            newest.Title, newest.Message, newest.Type.ToString());
+
+                        StateHasChanged();
+                    });
+                }
+            }
+            _lastNotifCount = currentCount;
+            await InvokeAsync(StateHasChanged);
+        }
+        catch { /* ignore errors during polling */ }
+    }
+
+    private void OnLocationChanged(object? sender, Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs e)
+    {
+        UpdateTitle(e.Location);
+        InvokeAsync(StateHasChanged);
+    }
+
+    private void UpdateTitle(string uri)
+    {
+        _pageTitle = uri switch
+        {
+            var u when u.Contains("/dashboard")     => "Dashboard",
+            var u when u.Contains("/products")      => "Products",
+            var u when u.Contains("/orders")        => "Orders",
+            var u when u.Contains("/inventory")     => "Inventory",
+            var u when u.Contains("/payments")      => "Payments",
+            var u when u.Contains("/notifications") => "Notifications",
+            var u when u.Contains("/profile")       => "Profile",
+            _                                       => "Dashboard",
+        };
+    }
+
+    private void Logout()
+    {
+        AuthService.Logout();
+        Nav.NavigateTo("/manager/login", forceLoad: true);
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        DataService.OnChange -= StateHasChanged;
+        Nav.LocationChanged  -= OnLocationChanged;
+        if (_pollTimer is not null)
+            await _pollTimer.DisposeAsync();
+    }
+
+    // Keep sync Dispose for compatibility
+    public void Dispose() => _ = DisposeAsync();
+}
+
+<style>
+    .manager-shell { min-height: 100vh; overflow: hidden; }
+
+    .sidebar {
+        width: 240px;
+        min-height: 100vh;
+        background: linear-gradient(180deg, #b71c1c 0%, #7f0000 100%);
+        transition: width 0.25s ease;
+        overflow: hidden;
+        flex-shrink: 0;
+        position: sticky;
+        top: 0;
+        height: 100vh;
+    }
+    .sidebar-collapsed { width: 64px; }
+
+    .sidebar-brand { border-bottom: 1px solid rgba(255,255,255,0.12); }
+
+    .brand-icon {
+        width: 38px; height: 38px;
+        background: rgba(255,255,255,0.18);
+        border-radius: 10px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 20px; color: white; flex-shrink: 0;
+    }
+    .brand-name { color: white; font-weight: 800; font-size: 16px; line-height: 1.1; white-space: nowrap; }
+    .brand-sub  { color: rgba(255,255,255,0.65); font-size: 10px; white-space: nowrap; }
+
+    .sidebar-toggle { color: rgba(255,255,255,0.7) !important; font-size: 13px; }
+    .sidebar-toggle:hover { color: white !important; }
+
+    .sidebar-link {
+        color: rgba(255,255,255,0.78) !important;
+        border-radius: 8px; padding: 10px 12px;
+        display: flex; align-items: center; gap: 10px;
+        font-size: 14px; transition: background 0.15s, color 0.15s; white-space: nowrap;
+    }
+    .sidebar-link:hover, .sidebar-link.active {
+        background: rgba(255,255,255,0.18) !important;
+        color: white !important;
+    }
+    .nav-icon { font-size: 17px; flex-shrink: 0; width: 20px; text-align: center; }
+    .notification-badge { font-size: 10px; }
+
+    .manager-avatar {
+        width: 32px; height: 32px;
+        background: rgba(255,255,255,0.2); border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        color: white; font-size: 16px; flex-shrink: 0;
+    }
+
+    .topbar { height: 58px; flex-shrink: 0; }
+    .topbar-icon { text-decoration: none; transition: color 0.15s; }
+    .topbar-icon:hover { color: #d32f2f !important; }
+
+    .avatar-circle {
+        width: 34px; height: 34px;
+        background: linear-gradient(135deg, #d32f2f, #b71c1c);
+        border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        color: white; font-weight: 700; font-size: 14px;
+    }
+
+    .main-content { min-width: 0; overflow: hidden; }
+</style>

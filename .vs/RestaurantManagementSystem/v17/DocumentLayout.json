@@ -1,0 +1,682 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{EB84F780-690F-4D7E-B663-9EE2CFB893B3}|Resto.Client\\Resto.Client.csproj|d:\\mga sawi sa pag ibig\\restaurantmanagementsystem\\resto.client\\components\\pages\\manager\\profile.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{EB84F780-690F-4D7E-B663-9EE2CFB893B3}|Resto.Client\\Resto.Client.csproj|solutionrelative:resto.client\\components\\pages\\manager\\profile.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{74C9B5CD-55F5-4416-8B3D-F2A7F120ACF0}|Resto.API\\Resto.API.csproj|d:\\mga sawi sa pag ibig\\restaurantmanagementsystem\\resto.api\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{74C9B5CD-55F5-4416-8B3D-F2A7F120ACF0}|Resto.API\\Resto.API.csproj|solutionrelative:resto.api\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EB84F780-690F-4D7E-B663-9EE2CFB893B3}|Resto.Client\\Resto.Client.csproj|d:\\mga sawi sa pag ibig\\restaurantmanagementsystem\\resto.client\\components\\pages\\manager\\login.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{EB84F780-690F-4D7E-B663-9EE2CFB893B3}|Resto.Client\\Resto.Client.csproj|solutionrelative:resto.client\\components\\pages\\manager\\login.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EB84F780-690F-4D7E-B663-9EE2CFB893B3}|Resto.Client\\Resto.Client.csproj|d:\\mga sawi sa pag ibig\\restaurantmanagementsystem\\resto.client\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EB84F780-690F-4D7E-B663-9EE2CFB893B3}|Resto.Client\\Resto.Client.csproj|solutionrelative:resto.client\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EB84F780-690F-4D7E-B663-9EE2CFB893B3}|Resto.Client\\Resto.Client.csproj|d:\\mga sawi sa pag ibig\\restaurantmanagementsystem\\resto.client\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EB84F780-690F-4D7E-B663-9EE2CFB893B3}|Resto.Client\\Resto.Client.csproj|solutionrelative:resto.client\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EB84F780-690F-4D7E-B663-9EE2CFB893B3}|Resto.Client\\Resto.Client.csproj|d:\\mga sawi sa pag ibig\\restaurantmanagementsystem\\resto.client\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{EB84F780-690F-4D7E-B663-9EE2CFB893B3}|Resto.Client\\Resto.Client.csproj|solutionrelative:resto.client\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EB84F780-690F-4D7E-B663-9EE2CFB893B3}|Resto.Client\\Resto.Client.csproj|d:\\mga sawi sa pag ibig\\restaurantmanagementsystem\\resto.client\\models\\manager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EB84F780-690F-4D7E-B663-9EE2CFB893B3}|Resto.Client\\Resto.Client.csproj|solutionrelative:resto.client\\models\\manager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EB84F780-690F-4D7E-B663-9EE2CFB893B3}|Resto.Client\\Resto.Client.csproj|d:\\mga sawi sa pag ibig\\restaurantmanagementsystem\\resto.client\\models\\apiresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EB84F780-690F-4D7E-B663-9EE2CFB893B3}|Resto.Client\\Resto.Client.csproj|solutionrelative:resto.client\\models\\apiresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EB84F780-690F-4D7E-B663-9EE2CFB893B3}|Resto.Client\\Resto.Client.csproj|d:\\mga sawi sa pag ibig\\restaurantmanagementsystem\\resto.client\\models\\loginresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EB84F780-690F-4D7E-B663-9EE2CFB893B3}|Resto.Client\\Resto.Client.csproj|solutionrelative:resto.client\\models\\loginresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{74C9B5CD-55F5-4416-8B3D-F2A7F120ACF0}|Resto.API\\Resto.API.csproj|d:\\mga sawi sa pag ibig\\restaurantmanagementsystem\\resto.api\\models\\loginresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{74C9B5CD-55F5-4416-8B3D-F2A7F120ACF0}|Resto.API\\Resto.API.csproj|solutionrelative:resto.api\\models\\loginresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{74C9B5CD-55F5-4416-8B3D-F2A7F120ACF0}|Resto.API\\Resto.API.csproj|d:\\mga sawi sa pag ibig\\restaurantmanagementsystem\\resto.api\\models\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{74C9B5CD-55F5-4416-8B3D-F2A7F120ACF0}|Resto.API\\Resto.API.csproj|solutionrelative:resto.api\\models\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{74C9B5CD-55F5-4416-8B3D-F2A7F120ACF0}|Resto.API\\Resto.API.csproj|d:\\mga sawi sa pag ibig\\restaurantmanagementsystem\\resto.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{74C9B5CD-55F5-4416-8B3D-F2A7F120ACF0}|Resto.API\\Resto.API.csproj|solutionrelative:resto.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{74C9B5CD-55F5-4416-8B3D-F2A7F120ACF0}|Resto.API\\Resto.API.csproj|d:\\mga sawi sa pag ibig\\restaurantmanagementsystem\\resto.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{74C9B5CD-55F5-4416-8B3D-F2A7F120ACF0}|Resto.API\\Resto.API.csproj|solutionrelative:resto.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{74C9B5CD-55F5-4416-8B3D-F2A7F120ACF0}|Resto.API\\Resto.API.csproj|d:\\mga sawi sa pag ibig\\restaurantmanagementsystem\\resto.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{74C9B5CD-55F5-4416-8B3D-F2A7F120ACF0}|Resto.API\\Resto.API.csproj|solutionrelative:resto.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{74C9B5CD-55F5-4416-8B3D-F2A7F120ACF0}|Resto.API\\Resto.API.csproj|d:\\mga sawi sa pag ibig\\restaurantmanagementsystem\\resto.api\\controllers\\notificationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{74C9B5CD-55F5-4416-8B3D-F2A7F120ACF0}|Resto.API\\Resto.API.csproj|solutionrelative:resto.api\\controllers\\notificationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{74C9B5CD-55F5-4416-8B3D-F2A7F120ACF0}|Resto.API\\Resto.API.csproj|d:\\mga sawi sa pag ibig\\restaurantmanagementsystem\\resto.api\\controllers\\inventorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{74C9B5CD-55F5-4416-8B3D-F2A7F120ACF0}|Resto.API\\Resto.API.csproj|solutionrelative:resto.api\\controllers\\inventorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{74C9B5CD-55F5-4416-8B3D-F2A7F120ACF0}|Resto.API\\Resto.API.csproj|d:\\mga sawi sa pag ibig\\restaurantmanagementsystem\\resto.api\\controllers\\paymentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{74C9B5CD-55F5-4416-8B3D-F2A7F120ACF0}|Resto.API\\Resto.API.csproj|solutionrelative:resto.api\\controllers\\paymentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{74C9B5CD-55F5-4416-8B3D-F2A7F120ACF0}|Resto.API\\Resto.API.csproj|d:\\mga sawi sa pag ibig\\restaurantmanagementsystem\\resto.api\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{74C9B5CD-55F5-4416-8B3D-F2A7F120ACF0}|Resto.API\\Resto.API.csproj|solutionrelative:resto.api\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{74C9B5CD-55F5-4416-8B3D-F2A7F120ACF0}|Resto.API\\Resto.API.csproj|d:\\mga sawi sa pag ibig\\restaurantmanagementsystem\\resto.api\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{74C9B5CD-55F5-4416-8B3D-F2A7F120ACF0}|Resto.API\\Resto.API.csproj|solutionrelative:resto.api\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{74C9B5CD-55F5-4416-8B3D-F2A7F120ACF0}|Resto.API\\Resto.API.csproj|d:\\mga sawi sa pag ibig\\restaurantmanagementsystem\\resto.api\\services\\encryptionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{74C9B5CD-55F5-4416-8B3D-F2A7F120ACF0}|Resto.API\\Resto.API.csproj|solutionrelative:resto.api\\services\\encryptionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{74C9B5CD-55F5-4416-8B3D-F2A7F120ACF0}|Resto.API\\Resto.API.csproj|d:\\mga sawi sa pag ibig\\restaurantmanagementsystem\\resto.api\\services\\cardvalidationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{74C9B5CD-55F5-4416-8B3D-F2A7F120ACF0}|Resto.API\\Resto.API.csproj|solutionrelative:resto.api\\services\\cardvalidationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{74C9B5CD-55F5-4416-8B3D-F2A7F120ACF0}|Resto.API\\Resto.API.csproj|d:\\mga sawi sa pag ibig\\restaurantmanagementsystem\\resto.api\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{74C9B5CD-55F5-4416-8B3D-F2A7F120ACF0}|Resto.API\\Resto.API.csproj|solutionrelative:resto.api\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{74C9B5CD-55F5-4416-8B3D-F2A7F120ACF0}|Resto.API\\Resto.API.csproj|d:\\mga sawi sa pag ibig\\restaurantmanagementsystem\\resto.api\\models\\productmodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{74C9B5CD-55F5-4416-8B3D-F2A7F120ACF0}|Resto.API\\Resto.API.csproj|solutionrelative:resto.api\\models\\productmodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{74C9B5CD-55F5-4416-8B3D-F2A7F120ACF0}|Resto.API\\Resto.API.csproj|d:\\mga sawi sa pag ibig\\restaurantmanagementsystem\\resto.api\\models\\ordermodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{74C9B5CD-55F5-4416-8B3D-F2A7F120ACF0}|Resto.API\\Resto.API.csproj|solutionrelative:resto.api\\models\\ordermodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{74C9B5CD-55F5-4416-8B3D-F2A7F120ACF0}|Resto.API\\Resto.API.csproj|d:\\mga sawi sa pag ibig\\restaurantmanagementsystem\\resto.api\\models\\paymentmodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{74C9B5CD-55F5-4416-8B3D-F2A7F120ACF0}|Resto.API\\Resto.API.csproj|solutionrelative:resto.api\\models\\paymentmodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{74C9B5CD-55F5-4416-8B3D-F2A7F120ACF0}|Resto.API\\Resto.API.csproj|d:\\mga sawi sa pag ibig\\restaurantmanagementsystem\\resto.api\\models\\apiresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{74C9B5CD-55F5-4416-8B3D-F2A7F120ACF0}|Resto.API\\Resto.API.csproj|solutionrelative:resto.api\\models\\apiresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EB84F780-690F-4D7E-B663-9EE2CFB893B3}|Resto.Client\\Resto.Client.csproj|d:\\mga sawi sa pag ibig\\restaurantmanagementsystem\\resto.client\\migrations\\20260824060520_syncappdbmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EB84F780-690F-4D7E-B663-9EE2CFB893B3}|Resto.Client\\Resto.Client.csproj|solutionrelative:resto.client\\migrations\\20260824060520_syncappdbmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EB84F780-690F-4D7E-B663-9EE2CFB893B3}|Resto.Client\\Resto.Client.csproj|d:\\mga sawi sa pag ibig\\restaurantmanagementsystem\\resto.client\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EB84F780-690F-4D7E-B663-9EE2CFB893B3}|Resto.Client\\Resto.Client.csproj|solutionrelative:resto.client\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EB84F780-690F-4D7E-B663-9EE2CFB893B3}|Resto.Client\\Resto.Client.csproj|d:\\mga sawi sa pag ibig\\restaurantmanagementsystem\\resto.client\\models\\payment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EB84F780-690F-4D7E-B663-9EE2CFB893B3}|Resto.Client\\Resto.Client.csproj|solutionrelative:resto.client\\models\\payment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EB84F780-690F-4D7E-B663-9EE2CFB893B3}|Resto.Client\\Resto.Client.csproj|d:\\mga sawi sa pag ibig\\restaurantmanagementsystem\\resto.client\\models\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EB84F780-690F-4D7E-B663-9EE2CFB893B3}|Resto.Client\\Resto.Client.csproj|solutionrelative:resto.client\\models\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EB84F780-690F-4D7E-B663-9EE2CFB893B3}|Resto.Client\\Resto.Client.csproj|d:\\mga sawi sa pag ibig\\restaurantmanagementsystem\\resto.client\\migrations\\20260821125644_updatemanagerandpaymentencryption.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EB84F780-690F-4D7E-B663-9EE2CFB893B3}|Resto.Client\\Resto.Client.csproj|solutionrelative:resto.client\\migrations\\20260821125644_updatemanagerandpaymentencryption.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EB84F780-690F-4D7E-B663-9EE2CFB893B3}|Resto.Client\\Resto.Client.csproj|d:\\mga sawi sa pag ibig\\restaurantmanagementsystem\\resto.client\\models\\notification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EB84F780-690F-4D7E-B663-9EE2CFB893B3}|Resto.Client\\Resto.Client.csproj|solutionrelative:resto.client\\models\\notification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EB84F780-690F-4D7E-B663-9EE2CFB893B3}|Resto.Client\\Resto.Client.csproj|d:\\mga sawi sa pag ibig\\restaurantmanagementsystem\\resto.client\\components\\pages\\manager\\dashboard.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{EB84F780-690F-4D7E-B663-9EE2CFB893B3}|Resto.Client\\Resto.Client.csproj|solutionrelative:resto.client\\components\\pages\\manager\\dashboard.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EB84F780-690F-4D7E-B663-9EE2CFB893B3}|Resto.Client\\Resto.Client.csproj|d:\\mga sawi sa pag ibig\\restaurantmanagementsystem\\resto.client\\components\\pages\\manager\\payments.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{EB84F780-690F-4D7E-B663-9EE2CFB893B3}|Resto.Client\\Resto.Client.csproj|solutionrelative:resto.client\\components\\pages\\manager\\payments.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EB84F780-690F-4D7E-B663-9EE2CFB893B3}|Resto.Client\\Resto.Client.csproj|d:\\mga sawi sa pag ibig\\restaurantmanagementsystem\\resto.client\\data\\dbseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EB84F780-690F-4D7E-B663-9EE2CFB893B3}|Resto.Client\\Resto.Client.csproj|solutionrelative:resto.client\\data\\dbseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EB84F780-690F-4D7E-B663-9EE2CFB893B3}|Resto.Client\\Resto.Client.csproj|d:\\mga sawi sa pag ibig\\restaurantmanagementsystem\\resto.client\\services\\clientencryptionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EB84F780-690F-4D7E-B663-9EE2CFB893B3}|Resto.Client\\Resto.Client.csproj|solutionrelative:resto.client\\services\\clientencryptionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{24A1D100-32F2-45B1-B2AD-509ADE0F3109}|Resto.App\\Resto.App.csproj|d:\\mga sawi sa pag ibig\\restaurantmanagementsystem\\resto.app\\pages\\paymentpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{24A1D100-32F2-45B1-B2AD-509ADE0F3109}|Resto.App\\Resto.App.csproj|solutionrelative:resto.app\\pages\\paymentpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EB84F780-690F-4D7E-B663-9EE2CFB893B3}|Resto.Client\\Resto.Client.csproj|d:\\mga sawi sa pag ibig\\restaurantmanagementsystem\\resto.client\\services\\dataservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EB84F780-690F-4D7E-B663-9EE2CFB893B3}|Resto.Client\\Resto.Client.csproj|solutionrelative:resto.client\\services\\dataservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{24A1D100-32F2-45B1-B2AD-509ADE0F3109}|Resto.App\\Resto.App.csproj|d:\\mga sawi sa pag ibig\\restaurantmanagementsystem\\resto.app\\pages\\paymentpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{24A1D100-32F2-45B1-B2AD-509ADE0F3109}|Resto.App\\Resto.App.csproj|solutionrelative:resto.app\\pages\\paymentpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{24A1D100-32F2-45B1-B2AD-509ADE0F3109}|Resto.App\\Resto.App.csproj|d:\\mga sawi sa pag ibig\\restaurantmanagementsystem\\resto.app\\services\\appdataservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{24A1D100-32F2-45B1-B2AD-509ADE0F3109}|Resto.App\\Resto.App.csproj|solutionrelative:resto.app\\services\\appdataservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{24A1D100-32F2-45B1-B2AD-509ADE0F3109}|Resto.App\\Resto.App.csproj|d:\\mga sawi sa pag ibig\\restaurantmanagementsystem\\resto.app\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{24A1D100-32F2-45B1-B2AD-509ADE0F3109}|Resto.App\\Resto.App.csproj|solutionrelative:resto.app\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Profile.razor",
+              "DocumentMoniker": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.Client\\Components\\Pages\\Manager\\Profile.razor",
+              "RelativeDocumentMoniker": "Resto.Client\\Components\\Pages\\Manager\\Profile.razor",
+              "ToolTip": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.Client\\Components\\Pages\\Manager\\Profile.razor",
+              "RelativeToolTip": "Resto.Client\\Components\\Pages\\Manager\\Profile.razor",
+              "ViewState": "AgIAAMUAAAAAAAAAAAAhwMcAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-08-26T12:30:02.016Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Login.razor",
+              "DocumentMoniker": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.Client\\Components\\Pages\\Manager\\Login.razor",
+              "RelativeDocumentMoniker": "Resto.Client\\Components\\Pages\\Manager\\Login.razor",
+              "ToolTip": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.Client\\Components\\Pages\\Manager\\Login.razor",
+              "RelativeToolTip": "Resto.Client\\Components\\Pages\\Manager\\Login.razor",
+              "ViewState": "AgIAAPEAAAAAAAAAAAAswPQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-08-24T22:09:02.907Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ApiResponse.cs",
+              "DocumentMoniker": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.Client\\Models\\ApiResponse.cs",
+              "RelativeDocumentMoniker": "Resto.Client\\Models\\ApiResponse.cs",
+              "ToolTip": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.Client\\Models\\ApiResponse.cs",
+              "RelativeToolTip": "Resto.Client\\Models\\ApiResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-24T22:01:28.798Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "LoginResponse.cs",
+              "DocumentMoniker": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.Client\\Models\\LoginResponse.cs",
+              "RelativeDocumentMoniker": "Resto.Client\\Models\\LoginResponse.cs",
+              "ToolTip": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.Client\\Models\\LoginResponse.cs",
+              "RelativeToolTip": "Resto.Client\\Models\\LoginResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-24T22:00:46.077Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.API\\Program.cs",
+              "RelativeDocumentMoniker": "Resto.API\\Program.cs",
+              "ToolTip": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.API\\Program.cs",
+              "RelativeToolTip": "Resto.API\\Program.cs",
+              "ViewState": "AgIAAFgAAAAAAAAAAAAQwFwAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-24T21:40:35.439Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "PaymentController.cs",
+              "DocumentMoniker": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.API\\Controllers\\PaymentController.cs",
+              "RelativeDocumentMoniker": "Resto.API\\Controllers\\PaymentController.cs",
+              "ToolTip": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.API\\Controllers\\PaymentController.cs",
+              "RelativeToolTip": "Resto.API\\Controllers\\PaymentController.cs",
+              "ViewState": "AgIAAJoAAAAAAAAAAAAwwL4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-24T21:39:47.159Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "EncryptionService.cs",
+              "DocumentMoniker": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.API\\Services\\EncryptionService.cs",
+              "RelativeDocumentMoniker": "Resto.API\\Services\\EncryptionService.cs",
+              "ToolTip": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.API\\Services\\EncryptionService.cs",
+              "RelativeToolTip": "Resto.API\\Services\\EncryptionService.cs",
+              "ViewState": "AgIAAEoAAAAAAAAAAAAwwG4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-24T21:38:32.106Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "CardValidationService.cs",
+              "DocumentMoniker": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.API\\Services\\CardValidationService.cs",
+              "RelativeDocumentMoniker": "Resto.API\\Services\\CardValidationService.cs",
+              "ToolTip": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.API\\Services\\CardValidationService.cs",
+              "RelativeToolTip": "Resto.API\\Services\\CardValidationService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAQwCMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-24T21:38:19.154Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "ProductModels.cs",
+              "DocumentMoniker": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.API\\Models\\ProductModels.cs",
+              "RelativeDocumentMoniker": "Resto.API\\Models\\ProductModels.cs",
+              "ToolTip": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.API\\Models\\ProductModels.cs",
+              "RelativeToolTip": "Resto.API\\Models\\ProductModels.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-24T21:37:26.305Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "OrderModels.cs",
+              "DocumentMoniker": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.API\\Models\\OrderModels.cs",
+              "RelativeDocumentMoniker": "Resto.API\\Models\\OrderModels.cs",
+              "ToolTip": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.API\\Models\\OrderModels.cs",
+              "RelativeToolTip": "Resto.API\\Models\\OrderModels.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-24T21:36:49.592Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "PaymentModels.cs",
+              "DocumentMoniker": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.API\\Models\\PaymentModels.cs",
+              "RelativeDocumentMoniker": "Resto.API\\Models\\PaymentModels.cs",
+              "ToolTip": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.API\\Models\\PaymentModels.cs",
+              "RelativeToolTip": "Resto.API\\Models\\PaymentModels.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAIwC8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-24T21:36:20.785Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "LoginResponse.cs",
+              "DocumentMoniker": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.API\\Models\\LoginResponse.cs",
+              "RelativeDocumentMoniker": "Resto.API\\Models\\LoginResponse.cs",
+              "ToolTip": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.API\\Models\\LoginResponse.cs",
+              "RelativeToolTip": "Resto.API\\Models\\LoginResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-24T21:36:07.003Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "LoginRequest.cs",
+              "DocumentMoniker": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.API\\Models\\LoginRequest.cs",
+              "RelativeDocumentMoniker": "Resto.API\\Models\\LoginRequest.cs",
+              "ToolTip": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.API\\Models\\LoginRequest.cs",
+              "RelativeToolTip": "Resto.API\\Models\\LoginRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-24T21:35:32.57Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "ApiResponse.cs",
+              "DocumentMoniker": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.API\\Models\\ApiResponse.cs",
+              "RelativeDocumentMoniker": "Resto.API\\Models\\ApiResponse.cs",
+              "ToolTip": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.API\\Models\\ApiResponse.cs",
+              "RelativeToolTip": "Resto.API\\Models\\ApiResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-24T21:34:56.386Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.API\\Data\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "Resto.API\\Data\\AppDbContext.cs",
+              "ToolTip": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.API\\Data\\AppDbContext.cs",
+              "RelativeToolTip": "Resto.API\\Data\\AppDbContext.cs",
+              "ViewState": "AgIAANwAAAAAAAAAAAAuwOwAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-24T21:26:26.295Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AuthService.cs",
+              "DocumentMoniker": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.API\\Services\\AuthService.cs",
+              "RelativeDocumentMoniker": "Resto.API\\Services\\AuthService.cs",
+              "ToolTip": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.API\\Services\\AuthService.cs",
+              "RelativeToolTip": "Resto.API\\Services\\AuthService.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAAACAAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-24T21:25:47.709Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "NotificationController.cs",
+              "DocumentMoniker": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.API\\Controllers\\NotificationController.cs",
+              "RelativeDocumentMoniker": "Resto.API\\Controllers\\NotificationController.cs",
+              "ToolTip": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.API\\Controllers\\NotificationController.cs",
+              "RelativeToolTip": "Resto.API\\Controllers\\NotificationController.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAwwDUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-24T21:25:00.735Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "InventoryController.cs",
+              "DocumentMoniker": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.API\\Controllers\\InventoryController.cs",
+              "RelativeDocumentMoniker": "Resto.API\\Controllers\\InventoryController.cs",
+              "ToolTip": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.API\\Controllers\\InventoryController.cs",
+              "RelativeToolTip": "Resto.API\\Controllers\\InventoryController.cs",
+              "ViewState": "AgIAACkAAAAAAAAAAAAwwE0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-24T21:24:29.526Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "ProductController.cs",
+              "DocumentMoniker": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.API\\Controllers\\ProductController.cs",
+              "RelativeDocumentMoniker": "Resto.API\\Controllers\\ProductController.cs",
+              "ToolTip": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.API\\Controllers\\ProductController.cs",
+              "RelativeToolTip": "Resto.API\\Controllers\\ProductController.cs",
+              "ViewState": "AgIAAGcAAAAAAAAAAAAwwIsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-24T21:24:02.04Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "OrderController.cs",
+              "DocumentMoniker": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.API\\Controllers\\OrderController.cs",
+              "RelativeDocumentMoniker": "Resto.API\\Controllers\\OrderController.cs",
+              "ToolTip": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.API\\Controllers\\OrderController.cs",
+              "RelativeToolTip": "Resto.API\\Controllers\\OrderController.cs",
+              "ViewState": "AgIAAEYAAAAAAAAAAAAwwFsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-24T21:23:39.143Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.API\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "Resto.API\\Controllers\\AuthController.cs",
+              "ToolTip": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.API\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "Resto.API\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAowBkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-24T21:22:45.758Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.API\\appsettings.json",
+              "RelativeDocumentMoniker": "Resto.API\\appsettings.json",
+              "ToolTip": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.API\\appsettings.json",
+              "RelativeToolTip": "Resto.API\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-08-24T21:17:05.194Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "20260824060520_SyncAppDbModel.cs",
+              "DocumentMoniker": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.Client\\Migrations\\20260824060520_SyncAppDbModel.cs",
+              "RelativeDocumentMoniker": "Resto.Client\\Migrations\\20260824060520_SyncAppDbModel.cs",
+              "ToolTip": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.Client\\Migrations\\20260824060520_SyncAppDbModel.cs",
+              "RelativeToolTip": "Resto.Client\\Migrations\\20260824060520_SyncAppDbModel.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAmwBIAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-24T06:05:20.649Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "Notification.cs",
+              "DocumentMoniker": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.Client\\Models\\Notification.cs",
+              "RelativeDocumentMoniker": "Resto.Client\\Models\\Notification.cs",
+              "ToolTip": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.Client\\Models\\Notification.cs",
+              "RelativeToolTip": "Resto.Client\\Models\\Notification.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-24T05:45:16.227Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "Order.cs",
+              "DocumentMoniker": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.Client\\Models\\Order.cs",
+              "RelativeDocumentMoniker": "Resto.Client\\Models\\Order.cs",
+              "ToolTip": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.Client\\Models\\Order.cs",
+              "RelativeToolTip": "Resto.Client\\Models\\Order.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAgAAABIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-24T05:41:48.903Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "Dashboard.razor",
+              "DocumentMoniker": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.Client\\Components\\Pages\\Manager\\Dashboard.razor",
+              "RelativeDocumentMoniker": "Resto.Client\\Components\\Pages\\Manager\\Dashboard.razor",
+              "ToolTip": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.Client\\Components\\Pages\\Manager\\Dashboard.razor",
+              "RelativeToolTip": "Resto.Client\\Components\\Pages\\Manager\\Dashboard.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-08-24T05:12:41.34Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "20260821125644_UpdateManagerAndPaymentEncryption.cs",
+              "DocumentMoniker": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.Client\\Migrations\\20260821125644_UpdateManagerAndPaymentEncryption.cs",
+              "RelativeDocumentMoniker": "Resto.Client\\Migrations\\20260821125644_UpdateManagerAndPaymentEncryption.cs",
+              "ToolTip": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.Client\\Migrations\\20260821125644_UpdateManagerAndPaymentEncryption.cs",
+              "RelativeToolTip": "Resto.Client\\Migrations\\20260821125644_UpdateManagerAndPaymentEncryption.cs",
+              "ViewState": "AgIAAHoBAAAAAAAAAAAowIIBAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-21T13:10:57.999Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.Client\\Program.cs",
+              "RelativeDocumentMoniker": "Resto.Client\\Program.cs",
+              "ToolTip": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.Client\\Program.cs",
+              "RelativeToolTip": "Resto.Client\\Program.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAAACIAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-21T12:25:47.386Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AuthService.cs",
+              "DocumentMoniker": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.Client\\Services\\AuthService.cs",
+              "RelativeDocumentMoniker": "Resto.Client\\Services\\AuthService.cs",
+              "ToolTip": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.Client\\Services\\AuthService.cs",
+              "RelativeToolTip": "Resto.Client\\Services\\AuthService.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAAowEoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-21T12:27:20.493Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "PaymentPage.xaml",
+              "DocumentMoniker": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.App\\Pages\\PaymentPage.xaml",
+              "RelativeDocumentMoniker": "Resto.App\\Pages\\PaymentPage.xaml",
+              "ToolTip": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.App\\Pages\\PaymentPage.xaml",
+              "RelativeToolTip": "Resto.App\\Pages\\PaymentPage.xaml",
+              "ViewState": "AgIAAJMAAAAAAAAAAAAUwJwAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-08-21T12:13:23.322Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "ClientEncryptionService.cs",
+              "DocumentMoniker": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.Client\\Services\\ClientEncryptionService.cs",
+              "RelativeDocumentMoniker": "Resto.Client\\Services\\ClientEncryptionService.cs",
+              "ToolTip": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.Client\\Services\\ClientEncryptionService.cs",
+              "RelativeToolTip": "Resto.Client\\Services\\ClientEncryptionService.cs",
+              "ViewState": "AgIAAKYAAAAAAAAAAADwv7wAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-21T11:55:23.753Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Manager.cs",
+              "DocumentMoniker": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.Client\\Models\\Manager.cs",
+              "RelativeDocumentMoniker": "Resto.Client\\Models\\Manager.cs",
+              "ToolTip": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.Client\\Models\\Manager.cs",
+              "RelativeToolTip": "Resto.Client\\Models\\Manager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-21T11:52:42.703Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.Client\\appsettings.json",
+              "RelativeDocumentMoniker": "Resto.Client\\appsettings.json",
+              "ToolTip": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.Client\\appsettings.json",
+              "RelativeToolTip": "Resto.Client\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-08-21T11:43:26.554Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "AppDataService.cs",
+              "DocumentMoniker": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.App\\Services\\AppDataService.cs",
+              "RelativeDocumentMoniker": "Resto.App\\Services\\AppDataService.cs",
+              "ToolTip": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.App\\Services\\AppDataService.cs",
+              "RelativeToolTip": "Resto.App\\Services\\AppDataService.cs",
+              "ViewState": "AgIAABwBAAAAAAAAAAA9wCgBAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-21T11:35:01.857Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "DataService.cs",
+              "DocumentMoniker": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.Client\\Services\\DataService.cs",
+              "RelativeDocumentMoniker": "Resto.Client\\Services\\DataService.cs",
+              "ToolTip": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.Client\\Services\\DataService.cs",
+              "RelativeToolTip": "Resto.Client\\Services\\DataService.cs",
+              "ViewState": "AgIAALwAAAAAAAAAAIBJwNYAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-21T11:21:01.15Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "DbSeeder.cs",
+              "DocumentMoniker": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.Client\\Data\\DbSeeder.cs",
+              "RelativeDocumentMoniker": "Resto.Client\\Data\\DbSeeder.cs",
+              "ToolTip": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.Client\\Data\\DbSeeder.cs",
+              "RelativeToolTip": "Resto.Client\\Data\\DbSeeder.cs",
+              "ViewState": "AgIAAEkDAAAAAAAAAADwv08DAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-21T11:20:37.762Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.Client\\Data\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "Resto.Client\\Data\\AppDbContext.cs",
+              "ToolTip": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.Client\\Data\\AppDbContext.cs",
+              "RelativeToolTip": "Resto.Client\\Data\\AppDbContext.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAowDgAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-21T11:20:26.853Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "Payment.cs",
+              "DocumentMoniker": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.Client\\Models\\Payment.cs",
+              "RelativeDocumentMoniker": "Resto.Client\\Models\\Payment.cs",
+              "ToolTip": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.Client\\Models\\Payment.cs",
+              "RelativeToolTip": "Resto.Client\\Models\\Payment.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-21T11:19:26.571Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "Payments.razor",
+              "DocumentMoniker": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.Client\\Components\\Pages\\Manager\\Payments.razor",
+              "RelativeDocumentMoniker": "Resto.Client\\Components\\Pages\\Manager\\Payments.razor",
+              "ToolTip": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.Client\\Components\\Pages\\Manager\\Payments.razor",
+              "RelativeToolTip": "Resto.Client\\Components\\Pages\\Manager\\Payments.razor",
+              "ViewState": "AgIAAAEBAAAAAAAAAAAkwAkBAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-08-20T05:54:10.837Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "PaymentPage.xaml.cs",
+              "DocumentMoniker": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.App\\Pages\\PaymentPage.xaml.cs",
+              "RelativeDocumentMoniker": "Resto.App\\Pages\\PaymentPage.xaml.cs",
+              "ToolTip": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.App\\Pages\\PaymentPage.xaml.cs",
+              "RelativeToolTip": "Resto.App\\Pages\\PaymentPage.xaml.cs",
+              "ViewState": "AgIAAHQAAAAAAAAAAIBJwIkAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-20T05:53:59.585Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "App.xaml.cs",
+              "DocumentMoniker": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.App\\App.xaml.cs",
+              "RelativeDocumentMoniker": "Resto.App\\App.xaml.cs",
+              "ToolTip": "D:\\Mga sawi sa pag ibig\\RestaurantManagementSystem\\Resto.App\\App.xaml.cs",
+              "RelativeToolTip": "Resto.App\\App.xaml.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAkwBYAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-20T03:34:52.538Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

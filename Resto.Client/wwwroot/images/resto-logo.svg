@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#b71c1c"/>
+      <stop offset="100%" style="stop-color:#7f0000"/>
+    </linearGradient>
+  </defs>
+  <!-- Background circle -->
+  <circle cx="60" cy="60" r="58" fill="url(#bg)"/>
+  <!-- Plate / dish icon -->
+  <ellipse cx="60" cy="72" rx="32" ry="6" fill="rgba(255,255,255,0.15)"/>
+  <ellipse cx="60" cy="68" rx="28" ry="18" fill="white" opacity="0.95"/>
+  <!-- Fork -->
+  <rect x="38" y="38" width="3" height="22" rx="1.5" fill="#b71c1c"/>
+  <rect x="38" y="34" width="1.5" height="8" rx="0.75" fill="#b71c1c"/>
+  <rect x="41" y="34" width="1.5" height="8" rx="0.75" fill="#b71c1c"/>
+  <!-- Knife -->
+  <rect x="79" y="34" width="3" height="26" rx="1.5" fill="#b71c1c"/>
+  <path d="M79 34 Q82 40 82 44 L79 44 Z" fill="#c62828"/>
+  <!-- Steam lines -->
+  <path d="M52 58 Q54 54 52 50 Q54 46 52 42" stroke="rgba(183,28,28,0.4)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <path d="M60 56 Q62 52 60 48 Q62 44 60 40" stroke="rgba(183,28,28,0.4)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <path d="M68 58 Q70 54 68 50 Q70 46 68 42" stroke="rgba(183,28,28,0.4)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <!-- Text RESTO -->
+  <text x="60" y="103" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="14" fill="white" letter-spacing="3">RESTO</text>
+</svg>

@@ -1,0 +1,441 @@
+@page "/manager/inventory"
+@layout ManagerLayout
+@rendermode InteractiveServer
+@inject DataService DataService
+@inject AuthService AuthService
+@inject NavigationManager Nav
+
+<PageTitle>Inventory — RESTO</PageTitle>
+
+<!-- ── Header ───────────────────────────────────────────────────────────── -->
+<div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
+    <div>
+        <h4 class="fw-bold mb-0">Inventory</h4>
+        <small class="text-muted">Monitor and manage food item stock levels</small>
+    </div>
+    <button class="btn btn-danger" @onclick="OpenAddModal">
+        <i class="bi bi-plus-lg me-1"></i> Add Items &amp; Restock
+    </button>
+</div>
+
+<!-- ── Summary badges ────────────────────────────────────────────────────── -->
+<div class="row g-3 mb-3">
+    <div class="col-6 col-md-4">
+        <div class="card border-0 shadow-sm text-center py-2">
+            <div class="fs-4 fw-bold text-success">@DataService.Inventory.Count(i => i.Status == StockStatus.InStock)</div>
+            <div class="small text-muted"><i class="bi bi-check-circle me-1 text-success"></i>In Stock</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-4">
+        <div class="card border-0 shadow-sm text-center py-2">
+            <div class="fs-4 fw-bold text-warning">@DataService.Inventory.Count(i => i.Status == StockStatus.AddStock)</div>
+            <div class="small text-muted"><i class="bi bi-exclamation-circle me-1 text-warning"></i>Low Stock</div>
+        </div>
+    </div>
+    <div class="col-12 col-md-4">
+        <div class="card border-0 shadow-sm text-center py-2">
+            <div class="fs-4 fw-bold text-danger">@DataService.Inventory.Count(i => i.Status == StockStatus.OutOfStock)</div>
+            <div class="small text-muted"><i class="bi bi-x-circle me-1 text-danger"></i>Out of Stock</div>
+        </div>
+    </div>
+</div>
+
+<!-- ── Filters ───────────────────────────────────────────────────────────── -->
+<div class="card border-0 shadow-sm mb-3">
+    <div class="card-body py-2">
+        <div class="row g-2 align-items-center">
+            <div class="col-12 col-md-5">
+                <div class="input-group input-group-sm">
+                    <span class="input-group-text bg-light border-end-0">
+                        <i class="bi bi-search text-muted"></i>
+                    </span>
+                    <input type="text" class="form-control border-start-0" placeholder="Search item..."
+                           @bind="_search" @bind:event="oninput" />
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <select class="form-select form-select-sm" @bind="_filterCategory">
+                    <option value="">All Categories</option>
+                    @foreach (var cat in Categories)
+                    {
+                        <option value="@cat">@cat</option>
+                    }
+                </select>
+            </div>
+            <div class="col-6 col-md-3">
+                <select class="form-select form-select-sm" @bind="_filterStatus">
+                    <option value="">All Status</option>
+                    @foreach (StockStatus s in Enum.GetValues<StockStatus>())
+                    {
+                        <option value="@s">@s</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ── Inventory Table ───────────────────────────────────────────────────── -->
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0 align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th class="ps-3">Item Name</th>
+                        <th>Category</th>
+                        <th>Stock</th>
+                        <th>Status</th>
+                        <th class="text-center" style="width:180px;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in FilteredItems)
+                    {
+                        <tr class="@GetRowClass(item.Status)">
+                            <td class="ps-3 fw-semibold small">@item.Name</td>
+                            <td>
+                                <span class="badge bg-light text-dark border small">@item.Category</span>
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="stock-bar-bg flex-grow-1">
+                                        <div class="stock-bar @GetBarClass(item.Status)"
+                                             style="width:@Math.Min((double)item.Stock / 50 * 100, 100)%">
+                                        </div>
+                                    </div>
+                                    <span class="fw-semibold small" style="min-width:28px;">@item.Stock</span>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="badge @GetStatusBadge(item.Status)">
+                                    @item.Status
+                                </span>
+                            </td>
+                            <td class="text-center">
+                                <div class="d-flex gap-1 justify-content-center">
+                                    <button class="btn btn-sm btn-outline-success"
+                                            title="Restock"
+                                            @onclick="() => OpenRestockModal(item)">
+                                        <i class="bi bi-plus-circle"></i> Restock
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-primary"
+                                            title="Edit stock"
+                                            @onclick="() => OpenEditModal(item)">
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-danger"
+                                            title="Delete"
+                                            @onclick="() => _deleteTarget = item">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                    @if (!FilteredItems.Any())
+                    {
+                        <tr>
+                            <td colspan="5" class="text-center py-5 text-muted">
+                                <i class="bi bi-inbox fs-1 d-block mb-2"></i>No inventory items found.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- ── Restock / Edit Modal ──────────────────────────────────────────────── -->
+@if (_showModal && _modalItem is not null)
+{
+    <div class="modal-backdrop-custom" @onclick="CloseModal"></div>
+    <div class="modal-panel card border-0 shadow-lg p-4" style="max-width:400px;">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+            <h5 class="fw-bold mb-0">@_modalTitle</h5>
+            <button class="btn-close" @onclick="CloseModal"></button>
+        </div>
+
+        <div class="mb-3">
+            <div class="small text-muted">Item</div>
+            <div class="fw-semibold">@_modalItem.Name</div>
+            <div class="small text-muted">Current stock: <strong>@_modalItem.Stock</strong></div>
+        </div>
+
+        @if (_isRestockMode)
+        {
+            <div class="mb-3">
+                <label class="form-label small fw-semibold">Add Stock Amount</label>
+                <input type="number" class="form-control" @bind="_stockInput" min="1" max="500" />
+                <div class="form-text">New total will be @(_modalItem.Stock + _stockInput)</div>
+            </div>
+        }
+        else
+        {
+            <div class="mb-3">
+                <label class="form-label small fw-semibold">Set Stock Level</label>
+                <input type="number" class="form-control" @bind="_stockInput" min="0" max="500" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label small fw-semibold">Low Stock Threshold</label>
+                <input type="number" class="form-control" @bind="_thresholdInput" min="1" max="100" />
+            </div>
+        }
+
+        @if (!string.IsNullOrEmpty(_modalError))
+        {
+            <div class="alert alert-danger py-2 small">@_modalError</div>
+        }
+
+        <div class="d-flex gap-2 mt-3">
+            <button class="btn btn-light flex-grow-1" @onclick="CloseModal">Cancel</button>
+            <button class="btn btn-danger flex-grow-1" @onclick="SaveStock">
+                <i class="bi bi-check-lg me-1"></i>Save
+            </button>
+        </div>
+    </div>
+}
+
+<!-- ── Add New Inventory Item Modal ─────────────────────────────────────── -->
+@if (_showAddModal)
+{
+    <div class="modal-backdrop-custom" @onclick="() => _showAddModal = false"></div>
+    <div class="modal-panel card border-0 shadow-lg p-4" style="max-width:420px;">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+            <h5 class="fw-bold mb-0">Add Inventory Item</h5>
+            <button class="btn-close" @onclick="() => _showAddModal = false"></button>
+        </div>
+        <div class="mb-3">
+            <label class="form-label small fw-semibold">Item Name</label>
+            <input type="text" class="form-control" @bind="_newItemName" placeholder="e.g. Pork Belly" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label small fw-semibold">Category</label>
+            <select class="form-select" @bind="_newItemCategory">
+                <option value="">Select category</option>
+                @foreach (var cat in Categories)
+                {
+                    <option value="@cat">@cat</option>
+                }
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label small fw-semibold">Initial Stock</label>
+            <input type="number" class="form-control" @bind="_newItemStock" min="0" />
+        </div>
+        @if (!string.IsNullOrEmpty(_addModalError))
+        {
+            <div class="alert alert-danger py-2 small">@_addModalError</div>
+        }
+        <div class="d-flex gap-2 mt-3">
+            <button class="btn btn-light flex-grow-1" @onclick="() => _showAddModal = false">Cancel</button>
+            <button class="btn btn-danger flex-grow-1" @onclick="AddNewItem">Add Item</button>
+        </div>
+    </div>
+}
+
+<!-- ── Delete confirm ────────────────────────────────────────────────────── -->
+@if (_deleteTarget is not null)
+{
+    <div class="modal-backdrop-custom" @onclick="() => _deleteTarget = null"></div>
+    <div class="modal-panel card border-0 shadow-lg p-4" style="max-width:360px;">
+        <div class="text-center mb-3">
+            <div class="text-danger" style="font-size:48px;"><i class="bi bi-trash3"></i></div>
+            <h5 class="fw-bold">Remove Item?</h5>
+            <p class="text-muted small">Remove <strong>@_deleteTarget.Name</strong> from inventory?</p>
+        </div>
+        <div class="d-flex gap-2">
+            <button class="btn btn-light flex-grow-1" @onclick="() => _deleteTarget = null">Cancel</button>
+            <button class="btn btn-danger flex-grow-1" @onclick="DeleteItem">Remove</button>
+        </div>
+    </div>
+}
+
+@code {
+    private string         _search          = string.Empty;
+    private string         _filterCategory  = string.Empty;
+    private string         _filterStatus    = string.Empty;
+    private bool           _showModal       = false;
+    private bool           _isRestockMode   = false;
+    private string         _modalTitle      = string.Empty;
+    private string         _modalError      = string.Empty;
+    private InventoryItem? _modalItem       = null;
+    private int            _stockInput      = 0;
+    private int            _thresholdInput  = 5;
+    private InventoryItem? _deleteTarget    = null;
+    private bool           _showAddModal    = false;
+    private string         _newItemName     = string.Empty;
+    private string         _newItemCategory = string.Empty;
+    private int            _newItemStock    = 0;
+    private string         _addModalError   = string.Empty;
+
+    private static readonly string[] Categories =
+        { "Pork","Chicken","Beef","Seafood","Noodles","Veggies","Rice","Dessert","Drinks" };
+
+    protected override void OnInitialized()
+    {
+        DataService.OnChange += StateHasChanged;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && !AuthService.IsAuthenticated)
+        {
+            Nav.NavigateTo("/manager/login", forceLoad: true);
+            await Task.CompletedTask;
+        }
+    }
+
+    public void Dispose() => DataService.OnChange -= StateHasChanged;
+
+    private IEnumerable<InventoryItem> FilteredItems =>
+        DataService.Inventory
+            .Where(i => string.IsNullOrEmpty(_search) || i.Name.Contains(_search, StringComparison.OrdinalIgnoreCase))
+            .Where(i => string.IsNullOrEmpty(_filterCategory) || i.Category == _filterCategory)
+            .Where(i => string.IsNullOrEmpty(_filterStatus) || i.Status.ToString() == _filterStatus)
+            .OrderBy(i => i.Status)
+            .ThenBy(i => i.Name);
+
+    private void OpenRestockModal(InventoryItem item)
+    {
+        _modalItem      = item;
+        _isRestockMode  = true;
+        _stockInput     = 10;
+        _thresholdInput = item.LowStockThreshold;
+        _modalTitle     = $"Restock: {item.Name}";
+        _modalError     = string.Empty;
+        _showModal      = true;
+    }
+
+    private void OpenEditModal(InventoryItem item)
+    {
+        _modalItem      = item;
+        _isRestockMode  = false;
+        _stockInput     = item.Stock;
+        _thresholdInput = item.LowStockThreshold;
+        _modalTitle     = $"Edit Stock: {item.Name}";
+        _modalError     = string.Empty;
+        _showModal      = true;
+    }
+
+    private void OpenAddModal()
+    {
+        _newItemName     = string.Empty;
+        _newItemCategory = string.Empty;
+        _newItemStock    = 0;
+        _addModalError   = string.Empty;
+        _showAddModal    = true;
+    }
+
+    private void CloseModal()
+    {
+        _showModal  = false;
+        _modalItem  = null;
+        _modalError = string.Empty;
+    }
+
+    private void SaveStock()
+    {
+        if (_modalItem is null) return;
+        if (_stockInput < 0) { _modalError = "Stock cannot be negative."; return; }
+
+        if (_isRestockMode)
+            DataService.RestockItem(_modalItem.Id, _stockInput);
+        else
+        {
+            DataService.UpdateStock(_modalItem.Id, _stockInput);
+            _modalItem.LowStockThreshold = _thresholdInput;
+        }
+        CloseModal();
+    }
+
+    private void AddNewItem()
+    {
+        if (string.IsNullOrWhiteSpace(_newItemName))
+        { _addModalError = "Item name is required."; return; }
+        if (string.IsNullOrWhiteSpace(_newItemCategory))
+        { _addModalError = "Please select a category."; return; }
+
+        var newInvId = DataService.Inventory.Any()
+            ? DataService.Inventory.Max(i => i.Id) + 1
+            : 1;
+
+        DataService.Inventory.Add(new InventoryItem
+        {
+            Id       = newInvId,
+            Name     = _newItemName,
+            Category = _newItemCategory,
+            Stock    = _newItemStock,
+        });
+        DataService.NotifyChanged(); // force refresh since we added directly
+        _showAddModal = false;
+    }
+
+    private void DeleteItem()
+    {
+        if (_deleteTarget is not null)
+            DataService.DeleteInventoryItem(_deleteTarget.Id);
+        _deleteTarget = null;
+    }
+
+    private string GetStatusBadge(StockStatus s) => s switch
+    {
+        StockStatus.InStock    => "bg-success",
+        StockStatus.AddStock   => "bg-warning text-dark",
+        StockStatus.OutOfStock => "bg-danger",
+        _                      => "bg-secondary",
+    };
+
+    private string GetBarClass(StockStatus s) => s switch
+    {
+        StockStatus.InStock    => "bg-success",
+        StockStatus.AddStock   => "bg-warning",
+        StockStatus.OutOfStock => "bg-danger",
+        _                      => "bg-secondary",
+    };
+
+    private string GetRowClass(StockStatus s) => s switch
+    {
+        StockStatus.OutOfStock => "table-danger bg-opacity-25",
+        StockStatus.AddStock   => "table-warning bg-opacity-10",
+        _                      => "",
+    };
+}
+
+<style>
+    .stock-bar-bg {
+        height: 8px;
+        background: #e9ecef;
+        border-radius: 4px;
+        overflow: hidden;
+        min-width: 60px;
+    }
+    .stock-bar {
+        height: 100%;
+        border-radius: 4px;
+        transition: width 0.4s ease;
+        min-width: 4px;
+    }
+    .modal-backdrop-custom {
+        position: fixed; inset: 0;
+        background: rgba(0,0,0,0.45);
+        z-index: 1040;
+    }
+    .modal-panel {
+        position: fixed;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1050;
+        width: 95%;
+        max-width: 520px;
+        max-height: 90vh;
+        overflow-y: auto;
+        border-radius: 16px;
+        animation: slideIn 0.25s ease-out;
+    }
+    @@keyframes slideIn {
+        from { opacity:0; transform: translate(-50%,-45%); }
+        to   { opacity:1; transform: translate(-50%,-50%); }
+    }
+</style>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Resto.App.Pages.MenuPage"
+             Title="Menu"
+             BackgroundColor="#f4f6fb">
+
+    <Grid RowDefinitions="Auto,Auto,*">
+
+        <!-- Header -->
+        <VerticalStackLayout Grid.Row="0" BackgroundColor="#b71c1c" Padding="20,16">
+            <Label Text="Our Menu" FontSize="22" FontAttributes="Bold"
+                   TextColor="White"/>
+            <Label Text="Choose your favorite dishes" FontSize="12"
+                   TextColor="#CCFFFFFF"/>
+        </VerticalStackLayout>
+
+        <!-- Search + Category filter -->
+        <VerticalStackLayout Grid.Row="1" BackgroundColor="White"
+                             Padding="16,12" Spacing="10">
+            <!-- Search bar -->
+            <Border BackgroundColor="#f4f6fb" StrokeThickness="0" Padding="4,0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10"/>
+                </Border.StrokeShape>
+                <HorizontalStackLayout Spacing="8" Padding="10,4">
+                    <Label Text="🔍" FontSize="16" VerticalOptions="Center"/>
+                    <Entry x:Name="SearchEntry"
+                           Placeholder="Search dishes..."
+                           PlaceholderColor="#aaa"
+                           BackgroundColor="Transparent"
+                           HorizontalOptions="FillAndExpand"
+                           TextChanged="OnSearchChanged"/>
+                </HorizontalStackLayout>
+            </Border>
+            <!-- Category scroll -->
+            <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
+                <HorizontalStackLayout x:Name="FilterChips" Spacing="8"/>
+            </ScrollView>
+        </VerticalStackLayout>
+
+        <!-- Menu items list -->
+        <CollectionView Grid.Row="2"
+                        x:Name="MenuList"
+                        SelectionMode="None"
+                        Margin="0">
+            <CollectionView.Header>
+                <BoxView HeightRequest="8" Color="Transparent"/>
+            </CollectionView.Header>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border Margin="16,0,16,12"
+                            BackgroundColor="White"
+                            StrokeThickness="0"
+                            Padding="14">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="16"/>
+                        </Border.StrokeShape>
+                        <Grid RowDefinitions="Auto,Auto,Auto,Auto" ColumnDefinitions="64,*">
+                            <!-- Emoji -->
+                            <Border Grid.Row="0" Grid.RowSpan="3" Grid.Column="0"
+                                    BackgroundColor="#fce4e4"
+                                    StrokeThickness="0"
+                                    WidthRequest="58" HeightRequest="58"
+                                    VerticalOptions="Start" Margin="0,0,12,0">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="14"/>
+                                </Border.StrokeShape>
+                                <Label Text="{Binding ImageEmoji}" FontSize="28"
+                                       HorizontalOptions="Center" VerticalOptions="Center"/>
+                            </Border>
+                            <!-- Name + badge -->
+                            <HorizontalStackLayout Grid.Row="0" Grid.Column="1" Spacing="8">
+                                <Label Text="{Binding Name}" FontSize="15"
+                                       FontAttributes="Bold" TextColor="#1a1a1a"
+                                       VerticalOptions="Center"/>
+                                <Border BackgroundColor="#b71c1c" StrokeThickness="0"
+                                        Padding="6,2"
+                                        IsVisible="{Binding IsAvailable, Converter={StaticResource InverseBoolConverter}}">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="6"/>
+                                    </Border.StrokeShape>
+                                    <Label Text="Unavailable" FontSize="9" TextColor="White"/>
+                                </Border>
+                            </HorizontalStackLayout>
+                            <!-- Description -->
+                            <Label Grid.Row="1" Grid.Column="1"
+                                   Text="{Binding Description}"
+                                   FontSize="11" TextColor="#888"
+                                   LineBreakMode="WordWrap" Margin="0,2,0,6"/>
+                            <!-- Prices -->
+                            <HorizontalStackLayout Grid.Row="2" Grid.Column="1" Spacing="12">
+                                <VerticalStackLayout Spacing="0">
+                                    <Label Text="HALF" FontSize="9" TextColor="#aaa"/>
+                                    <Label Text="{Binding PriceHalf, StringFormat='₱{0:N0}'}"
+                                           FontSize="13" FontAttributes="Bold" TextColor="#b71c1c"/>
+                                </VerticalStackLayout>
+                                <VerticalStackLayout Spacing="0">
+                                    <Label Text="FULL" FontSize="9" TextColor="#aaa"/>
+                                    <Label Text="{Binding PriceFull, StringFormat='₱{0:N0}'}"
+                                           FontSize="13" FontAttributes="Bold" TextColor="#b71c1c"/>
+                                </VerticalStackLayout>
+                            </HorizontalStackLayout>
+                            <!-- Add to cart buttons -->
+                            <HorizontalStackLayout Grid.Row="3" Grid.ColumnSpan="2"
+                                                   Spacing="8" Margin="0,10,0,0">
+                                <Button Text="+ Half"
+                                        FontSize="12" FontAttributes="Bold"
+                                        BackgroundColor="#fce4e4"
+                                        TextColor="#b71c1c"
+                                        CornerRadius="8"
+                                        Padding="14,8"
+                                        HorizontalOptions="FillAndExpand"
+                                        IsEnabled="{Binding IsAvailable}"
+                                        CommandParameter="{Binding .}"
+                                        Clicked="OnAddHalfClicked"/>
+                                <Button Text="+ Full"
+                                        FontSize="12" FontAttributes="Bold"
+                                        BackgroundColor="#b71c1c"
+                                        TextColor="White"
+                                        CornerRadius="8"
+                                        Padding="14,8"
+                                        HorizontalOptions="FillAndExpand"
+                                        IsEnabled="{Binding IsAvailable}"
+                                        CommandParameter="{Binding .}"
+                                        Clicked="OnAddFullClicked"/>
+                            </HorizontalStackLayout>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
+</ContentPage>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Resto.App.Pages.OrdersPage"
+             Title="My Orders"
+             BackgroundColor="#f4f6fb">
+
+    <Grid RowDefinitions="Auto,*">
+
+        <!-- Header -->
+        <VerticalStackLayout Grid.Row="0" BackgroundColor="#b71c1c" Padding="20,16">
+            <Label Text="My Orders 📋" FontSize="22" FontAttributes="Bold" TextColor="White"/>
+            <Label Text="Track your order status" FontSize="12" TextColor="#CCFFFFFF"/>
+        </VerticalStackLayout>
+
+        <!-- Empty state -->
+        <VerticalStackLayout Grid.Row="1" x:Name="EmptyState"
+                             IsVisible="False"
+                             VerticalOptions="Center" HorizontalOptions="Center"
+                             Spacing="12" Padding="40">
+            <Label Text="📋" FontSize="64" HorizontalOptions="Center"/>
+            <Label Text="No orders yet" FontSize="18" FontAttributes="Bold"
+                   TextColor="#555" HorizontalOptions="Center"/>
+            <Label Text="Your placed orders will appear here." FontSize="13"
+                   TextColor="#888" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+            <Button Text="Browse Menu" BackgroundColor="#b71c1c" TextColor="White"
+                    CornerRadius="12" Padding="24,12" Margin="0,8"
+                    Clicked="OnBrowseMenuClicked"/>
+        </VerticalStackLayout>
+
+        <!-- Orders list -->
+        <CollectionView Grid.Row="1" x:Name="OrdersList" SelectionMode="None">
+            <CollectionView.Header>
+                <BoxView HeightRequest="8" Color="Transparent"/>
+            </CollectionView.Header>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border Margin="16,0,16,12" BackgroundColor="White"
+                            StrokeThickness="0" Padding="16">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="16"/>
+                        </Border.StrokeShape>
+                        <VerticalStackLayout Spacing="10">
+                            <!-- Order header -->
+                            <Grid ColumnDefinitions="*,Auto">
+                                <VerticalStackLayout Grid.Column="0" Spacing="2">
+                                    <Label Text="{Binding Id, StringFormat='Order #{0}'}"
+                                           FontSize="15" FontAttributes="Bold" TextColor="#1a1a1a"/>
+                                    <Label Text="{Binding OrderDate, StringFormat='{0:MMM dd, yyyy hh:mm tt}'}"
+                                           FontSize="11" TextColor="#aaa"/>
+                                </VerticalStackLayout>
+                                <!-- Status badge -->
+                                <Border Grid.Column="1" x:Name="StatusBadge"
+                                        StrokeThickness="0" Padding="10,5"
+                                        BackgroundColor="#fff3e0"
+                                        VerticalOptions="Start">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="8"/>
+                                    </Border.StrokeShape>
+                                    <Label Text="{Binding Status}" FontSize="11"
+                                           FontAttributes="Bold" TextColor="#e65100"/>
+                                </Border>
+                            </Grid>
+
+                            <BoxView HeightRequest="1" Color="#f5f5f5"/>
+
+                            <!-- Items summary -->
+                            <Label Text="{Binding Items, Converter={StaticResource ItemsSummaryConverter}}"
+                                   FontSize="12" TextColor="#666" LineBreakMode="WordWrap"/>
+
+                            <BoxView HeightRequest="1" Color="#f5f5f5"/>
+
+                            <!-- Footer: total + payment -->
+                            <Grid ColumnDefinitions="*,Auto">
+                                <HorizontalStackLayout Grid.Column="0" Spacing="8">
+                                    <Label Text="{Binding PaymentMethod}"
+                                           FontSize="12" TextColor="#888" VerticalOptions="Center"/>
+                                    <Border BackgroundColor="#e8f5e9" StrokeThickness="0" Padding="6,2">
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="6"/>
+                                        </Border.StrokeShape>
+                                        <Label Text="{Binding PaymentStatus}"
+                                               FontSize="10" FontAttributes="Bold" TextColor="#2e7d32"/>
+                                    </Border>
+                                </HorizontalStackLayout>
+                                <Label Grid.Column="1"
+                                       Text="{Binding Total, StringFormat='₱{0:N2}'}"
+                                       FontSize="16" FontAttributes="Bold" TextColor="#b71c1c"/>
+                            </Grid>
+
+                            <!-- Pickup indicator -->
+                            <HorizontalStackLayout Spacing="6" IsVisible="{Binding IsPickedUp}">
+                                <Label Text="✅" FontSize="14"/>
+                                <Label Text="Picked up" FontSize="12" TextColor="#2e7d32"
+                                       FontAttributes="Bold" VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
+</ContentPage>

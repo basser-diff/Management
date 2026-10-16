@@ -1,0 +1,333 @@
+@page "/manager/orders"
+@layout ManagerLayout
+@rendermode InteractiveServer
+@inject DataService DataService
+@inject AuthService AuthService
+@inject NavigationManager Nav
+
+<PageTitle>Orders — RESTO</PageTitle>
+
+<!-- ── Header ───────────────────────────────────────────────────────────── -->
+<div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
+    <div>
+        <h4 class="fw-bold mb-0">Orders</h4>
+        <small class="text-muted">Manage and process customer orders</small>
+    </div>
+    <div class="d-flex gap-2 align-items-center">
+        <span class="badge bg-warning-subtle text-warning border border-warning-subtle px-3 py-2">
+            @DataService.Orders.Count(o => o.Status == OrderStatus.Pending) Pending
+        </span>
+        <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-2">
+            @DataService.Orders.Count(o => o.Status == OrderStatus.ReadyForPickup) Ready for Pickup
+        </span>
+    </div>
+</div>
+
+<!-- ── Filters ───────────────────────────────────────────────────────────── -->
+<div class="card border-0 shadow-sm mb-3">
+    <div class="card-body py-2">
+        <div class="row g-2 align-items-center">
+            <div class="col-12 col-md-5">
+                <div class="input-group input-group-sm">
+                    <span class="input-group-text bg-light border-end-0">
+                        <i class="bi bi-search text-muted"></i>
+                    </span>
+                    <input type="text" class="form-control border-start-0"
+                           placeholder="Search customer or order ID..."
+                           @bind="_search" @bind:event="oninput" />
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <select class="form-select form-select-sm" @bind="_filterStatus">
+                    <option value="">All Status</option>
+                    @foreach (OrderStatus s in Enum.GetValues<OrderStatus>())
+                    {
+                        <option value="@s">@s</option>
+                    }
+                </select>
+            </div>
+            <div class="col-6 col-md-3">
+                <select class="form-select form-select-sm" @bind="_filterPayment">
+                    <option value="">All Payment</option>
+                    @foreach (PaymentStatus s in Enum.GetValues<PaymentStatus>())
+                    {
+                        <option value="@s">@s</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-1 text-end">
+                <span class="badge bg-danger-subtle text-danger border border-danger-subtle">
+                    @FilteredOrders.Count()
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ── Orders Table ──────────────────────────────────────────────────────── -->
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0 align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th class="ps-3">Order ID</th>
+                        <th>Customer</th>
+                        <th>Items</th>
+                        <th>Total</th>
+                        <th>Date</th>
+                        <th>Order Status</th>
+                        <th>Payment</th>
+                        <th>Pick-Up</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var order in FilteredOrders)
+                    {
+                        <tr class="@(order.Status == OrderStatus.Pending ? "table-warning bg-opacity-25" : "")">
+                            <td class="ps-3 fw-semibold text-danger">#@order.Id</td>
+                            <td>
+                                <div class="fw-semibold small">@order.CustomerName</div>
+                            </td>
+                            <td>
+                                <div class="small text-muted" style="max-width:180px;">
+                                    @foreach (var item in order.Items.Take(2))
+                                    {
+                                        <div>@item.ProductName (@item.Portion) x@item.Quantity</div>
+                                    }
+                                    @if (order.Items.Count > 2)
+                                    {
+                                        <div class="text-muted">+@(order.Items.Count - 2) more</div>
+                                    }
+                                </div>
+                            </td>
+                            <td class="fw-semibold">₱@order.Total.ToString("N0")</td>
+                            <td class="small text-muted">@order.OrderDate.ToString("MMM dd, hh:mm tt")</td>
+                            <td>
+                                <span class="badge @GetOrderBadge(order.Status)">@order.Status</span>
+                            </td>
+                            <td>
+                                <span class="badge @GetPayBadge(order.PaymentStatus)">@order.PaymentStatus</span>
+                            </td>
+                            <td class="text-center">
+                                @if (order.IsPickedUp)
+                                {
+                                    <i class="bi bi-check-circle-fill text-success"></i>
+                                }
+                                else
+                                {
+                                    <i class="bi bi-clock text-muted"></i>
+                                }
+                            </td>
+                            <td class="text-center">
+                                <div class="d-flex gap-1 justify-content-center">
+                                    <button class="btn btn-sm btn-outline-danger"
+                                            @onclick="() => ViewOrder(order)"
+                                            title="View details">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                    @if (order.Status == OrderStatus.Pending)
+                                    {
+                                        <button class="btn btn-sm btn-success"
+                                                @onclick="() => DataService.ConfirmOrder(order.Id)"
+                                                title="Confirm order">
+                                            <i class="bi bi-check-lg"></i>
+                                        </button>
+                                    }
+                                    @if (order.Status == OrderStatus.Confirmed)
+                                    {
+                                        <button class="btn btn-sm btn-warning"
+                                                @onclick="() => DataService.UpdateOrderStatus(order.Id, OrderStatus.Preparing)"
+                                                title="Mark Preparing">
+                                            <i class="bi bi-fire"></i>
+                                        </button>
+                                    }
+                                    @if (order.Status == OrderStatus.Preparing)
+                                    {
+                                        <button class="btn btn-sm btn-info"
+                                                @onclick="() => DataService.UpdateOrderStatus(order.Id, OrderStatus.ReadyForPickup)"
+                                                title="Mark Ready">
+                                            <i class="bi bi-bag-check"></i>
+                                        </button>
+                                    }
+                                    @if (order.Status == OrderStatus.ReadyForPickup)
+                                    {
+                                        <button class="btn btn-sm btn-success"
+                                                @onclick="() => DataService.UpdateOrderStatus(order.Id, OrderStatus.Completed)"
+                                                title="Mark Completed">
+                                            <i class="bi bi-bag-dash"></i>
+                                        </button>
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                    @if (!FilteredOrders.Any())
+                    {
+                        <tr>
+                            <td colspan="9" class="text-center py-5 text-muted">
+                                <i class="bi bi-inbox fs-1 d-block mb-2"></i>No orders found.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- ── Order Detail Modal ────────────────────────────────────────────────── -->
+@if (_viewOrder is not null)
+{
+    <div class="modal-backdrop-custom" @onclick="() => _viewOrder = null"></div>
+    <div class="modal-panel card border-0 shadow-lg p-4">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+            <h5 class="fw-bold mb-0">Order #@_viewOrder.Id Details</h5>
+            <button class="btn-close" @onclick="() => _viewOrder = null"></button>
+        </div>
+
+        <div class="row g-3 mb-3">
+            <div class="col-6">
+                <div class="small text-muted">Customer</div>
+                <div class="fw-semibold">@_viewOrder.CustomerName</div>
+            </div>
+            <div class="col-6">
+                <div class="small text-muted">Order Date</div>
+                <div class="fw-semibold">@_viewOrder.OrderDate.ToString("MMM dd, yyyy hh:mm tt")</div>
+            </div>
+            <div class="col-6">
+                <div class="small text-muted">Order Status</div>
+                <span class="badge @GetOrderBadge(_viewOrder.Status)">@_viewOrder.Status</span>
+            </div>
+            <div class="col-6">
+                <div class="small text-muted">Payment</div>
+                <span class="badge @GetPayBadge(_viewOrder.PaymentStatus)">@_viewOrder.PaymentStatus</span>
+            </div>
+        </div>
+
+        <table class="table table-sm border rounded">
+            <thead class="table-light">
+                <tr>
+                    <th>Item</th>
+                    <th>Category</th>
+                    <th>Portion</th>
+                    <th>Qty</th>
+                    <th class="text-end">Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in _viewOrder.Items)
+                {
+                    <tr>
+                        <td class="small fw-semibold">@item.ProductName</td>
+                        <td class="small text-muted">@item.Category</td>
+                        <td><span class="badge bg-light text-dark border">@item.Portion</span></td>
+                        <td>@item.Quantity</td>
+                        <td class="text-end fw-semibold">₱@item.Subtotal.ToString("N0")</td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot class="table-light">
+                <tr>
+                    <td colspan="4" class="text-end fw-bold">Total</td>
+                    <td class="text-end fw-bold text-danger">₱@_viewOrder.Total.ToString("N0")</td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <!-- Status update -->
+        <div class="mt-2">
+            <label class="form-label small fw-semibold">Update Status</label>
+            <div class="d-flex gap-2 flex-wrap">
+                @foreach (OrderStatus s in Enum.GetValues<OrderStatus>())
+                {
+                    <button class="btn btn-sm @(s == _viewOrder.Status ? "btn-danger" : "btn-outline-secondary")"
+                            @onclick="() => { DataService.UpdateOrderStatus(_viewOrder.Id, s); _viewOrder.Status = s; }">
+                        @s
+                    </button>
+                }
+            </div>
+        </div>
+
+        <div class="text-end mt-3">
+            <button class="btn btn-light px-4" @onclick="() => _viewOrder = null">Close</button>
+        </div>
+    </div>
+}
+
+@code {
+    private string       _search        = string.Empty;
+    private string       _filterStatus  = string.Empty;
+    private string       _filterPayment = string.Empty;
+    private Order?       _viewOrder     = null;
+
+    protected override void OnInitialized()
+    {
+        DataService.OnChange += StateHasChanged;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && !AuthService.IsAuthenticated)
+        {
+            Nav.NavigateTo("/manager/login", forceLoad: true);
+            await Task.CompletedTask;
+        }
+    }
+
+    public void Dispose() => DataService.OnChange -= StateHasChanged;
+
+    private IEnumerable<Order> FilteredOrders =>
+        DataService.Orders
+            .Where(o => string.IsNullOrEmpty(_search)
+                        || o.CustomerName.Contains(_search, StringComparison.OrdinalIgnoreCase)
+                        || o.Id.ToString().Contains(_search))
+            .Where(o => string.IsNullOrEmpty(_filterStatus)  || o.Status.ToString()        == _filterStatus)
+            .Where(o => string.IsNullOrEmpty(_filterPayment) || o.PaymentStatus.ToString() == _filterPayment)
+            .OrderByDescending(o => o.OrderDate);
+
+    private void ViewOrder(Order o) => _viewOrder = o;
+
+    private string GetOrderBadge(OrderStatus s) => s switch
+    {
+        OrderStatus.Pending        => "bg-secondary",
+        OrderStatus.Confirmed      => "bg-primary",
+        OrderStatus.Preparing      => "bg-warning text-dark",
+        OrderStatus.ReadyForPickup => "bg-info text-dark",
+        OrderStatus.Completed      => "bg-success",
+        OrderStatus.Cancelled      => "bg-danger",
+        _                          => "bg-secondary",
+    };
+
+    private string GetPayBadge(PaymentStatus s) => s switch
+    {
+        PaymentStatus.Paid    => "bg-success",
+        PaymentStatus.Failed  => "bg-danger",
+        _                     => "bg-warning text-dark",
+    };
+}
+
+<style>
+    .modal-backdrop-custom {
+        position: fixed; inset: 0;
+        background: rgba(0,0,0,0.45);
+        z-index: 1040;
+    }
+    .modal-panel {
+        position: fixed;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1050;
+        width: 95%;
+        max-width: 620px;
+        max-height: 90vh;
+        overflow-y: auto;
+        border-radius: 16px;
+        animation: slideIn 0.25s ease-out;
+    }
+    @@keyframes slideIn {
+        from { opacity: 0; transform: translate(-50%,-45%); }
+        to   { opacity: 1; transform: translate(-50%,-50%); }
+    }
+</style>

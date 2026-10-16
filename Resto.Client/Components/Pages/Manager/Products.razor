@@ -1,0 +1,345 @@
+@page "/manager/products"
+@layout ManagerLayout
+@rendermode InteractiveServer
+@inject DataService DataService
+@inject AuthService AuthService
+@inject NavigationManager Nav
+
+<PageTitle>Products — RESTO</PageTitle>
+
+<!-- ── Header ───────────────────────────────────────────────────────────── -->
+<div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
+    <div>
+        <h4 class="fw-bold mb-0">Products</h4>
+        <small class="text-muted">Manage your restaurant menu items</small>
+    </div>
+    <button class="btn btn-danger" @onclick="OpenAddModal">
+        <i class="bi bi-plus-lg me-1"></i> Add Product
+    </button>
+</div>
+
+<!-- ── Filters ───────────────────────────────────────────────────────────── -->
+<div class="card border-0 shadow-sm mb-3">
+    <div class="card-body py-2">
+        <div class="row g-2 align-items-center">
+            <div class="col-12 col-md-5">
+                <div class="input-group input-group-sm">
+                    <span class="input-group-text bg-light border-end-0">
+                        <i class="bi bi-search text-muted"></i>
+                    </span>
+                    <input type="text" class="form-control border-start-0" placeholder="Search products..."
+                           @bind="_search" @bind:event="oninput" />
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <select class="form-select form-select-sm" @bind="_filterCategory">
+                    <option value="">All Categories</option>
+                    @foreach (var cat in Categories)
+                    {
+                        <option value="@cat">@cat</option>
+                    }
+                </select>
+            </div>
+            <div class="col-6 col-md-3">
+                <select class="form-select form-select-sm" @bind="_filterAvailability">
+                    <option value="">All Status</option>
+                    <option value="true">Available</option>
+                    <option value="false">Unavailable</option>
+                </select>
+            </div>
+            <div class="col-md-1 text-md-end">
+                <span class="badge bg-danger-subtle text-danger border border-danger-subtle">
+                    @FilteredProducts.Count()
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ── Product Grid ──────────────────────────────────────────────────────── -->
+<div class="row g-3">
+    @foreach (var product in FilteredProducts)
+    {
+        <div class="col-12 col-sm-6 col-xl-4">
+            <div class="card border-0 shadow-sm h-100 product-card">
+                <!-- Category ribbon -->
+                <div class="product-ribbon">@product.Category</div>
+                <div class="card-body pt-4">
+                    <div class="d-flex align-items-start justify-content-between mb-2">
+                        <h6 class="fw-bold mb-0">@product.Name</h6>
+                        <span class="badge @(product.IsAvailable ? "bg-success" : "bg-secondary") ms-2">
+                            @(product.IsAvailable ? "Available" : "Unavailable")
+                        </span>
+                    </div>
+                    <p class="text-muted small mb-2" style="min-height:36px;">@product.Description</p>
+                    <div class="d-flex gap-3 mb-3">
+                        <div>
+                            <div class="text-muted" style="font-size:10px;">HALF</div>
+                            <div class="fw-semibold text-danger">
+                                @(product.PriceHalf > 0 ? $"₱{product.PriceHalf:N0}" : "—")
+                            </div>
+                        </div>
+                        <div>
+                            <div class="text-muted" style="font-size:10px;">FULL</div>
+                            <div class="fw-semibold text-danger">₱@product.PriceFull.ToString("N0")</div>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-sm btn-outline-primary flex-grow-1" @onclick="() => OpenEditModal(product)">
+                            <i class="bi bi-pencil me-1"></i>Edit
+                        </button>
+                        <button class="btn btn-sm @(product.IsAvailable ? "btn-outline-secondary" : "btn-outline-success")"
+                                @onclick="() => ToggleAvailability(product)">
+                            <i class="bi @(product.IsAvailable ? "bi-eye-slash" : "bi-eye")"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger" @onclick="() => ConfirmDelete(product)">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    @if (!FilteredProducts.Any())
+    {
+        <div class="col-12 text-center py-5 text-muted">
+            <i class="bi bi-inbox fs-1 d-block mb-2"></i>
+            No products found.
+        </div>
+    }
+</div>
+
+<!-- ── Add / Edit Modal ──────────────────────────────────────────────────── -->
+@if (_showModal)
+{
+    <div class="modal-backdrop-custom" @onclick="CloseModal"></div>
+    <div class="modal-panel card border-0 shadow-lg p-4">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+            <h5 class="fw-bold mb-0">@(_editProduct.Id == 0 ? "Add New Product" : "Edit Product")</h5>
+            <button class="btn-close" @onclick="CloseModal"></button>
+        </div>
+
+        <div class="row g-3">
+            <div class="col-12">
+                <label class="form-label small fw-semibold">Product Name <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" @bind="_editProduct.Name" placeholder="e.g. Pork Adobo" />
+            </div>
+            <div class="col-12 col-sm-6">
+                <label class="form-label small fw-semibold">Category <span class="text-danger">*</span></label>
+                <select class="form-select" @bind="_editProduct.Category">
+                    <option value="">Select category</option>
+                    @foreach (var cat in Categories)
+                    {
+                        <option value="@cat">@cat</option>
+                    }
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="col-6 col-sm-3">
+                <label class="form-label small fw-semibold">Price (Half)</label>
+                <div class="input-group">
+                    <span class="input-group-text">₱</span>
+                    <input type="number" class="form-control" @bind="_editProduct.PriceHalf" min="0" step="5" />
+                </div>
+            </div>
+            <div class="col-6 col-sm-3">
+                <label class="form-label small fw-semibold">Price (Full) <span class="text-danger">*</span></label>
+                <div class="input-group">
+                    <span class="input-group-text">₱</span>
+                    <input type="number" class="form-control" @bind="_editProduct.PriceFull" min="0" step="5" />
+                </div>
+            </div>
+            <div class="col-12">
+                <label class="form-label small fw-semibold">Description</label>
+                <textarea class="form-control" rows="2" @bind="_editProduct.Description"
+                          placeholder="Brief description of the dish..."></textarea>
+            </div>
+            <div class="col-12">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch"
+                           id="availSwitch" @bind="_editProduct.IsAvailable" />
+                    <label class="form-check-label" for="availSwitch">Available for ordering</label>
+                </div>
+            </div>
+        </div>
+
+        @if (!string.IsNullOrEmpty(_modalError))
+        {
+            <div class="alert alert-danger py-2 mt-3 small">@_modalError</div>
+        }
+
+        <div class="d-flex gap-2 justify-content-end mt-4">
+            <button class="btn btn-light px-4" @onclick="CloseModal">Cancel</button>
+            <button class="btn btn-danger px-4" @onclick="SaveProduct">
+                <i class="bi bi-check-lg me-1"></i>
+                @(_editProduct.Id == 0 ? "Add Product" : "Save Changes")
+            </button>
+        </div>
+    </div>
+}
+
+<!-- ── Delete confirm ────────────────────────────────────────────────────── -->
+@if (_deleteTarget is not null)
+{
+    <div class="modal-backdrop-custom" @onclick="() => _deleteTarget = null"></div>
+    <div class="modal-panel card border-0 shadow-lg p-4" style="max-width:380px;">
+        <div class="text-center mb-3">
+            <div class="text-danger" style="font-size:48px;"><i class="bi bi-trash3"></i></div>
+            <h5 class="fw-bold">Delete Product?</h5>
+            <p class="text-muted small">
+                This will permanently remove <strong>@_deleteTarget.Name</strong> and its inventory record.
+            </p>
+        </div>
+        <div class="d-flex gap-2">
+            <button class="btn btn-light flex-grow-1" @onclick="() => _deleteTarget = null">Cancel</button>
+            <button class="btn btn-danger flex-grow-1" @onclick="DeleteProduct">Delete</button>
+        </div>
+    </div>
+}
+
+@code {
+    private string  _search             = string.Empty;
+    private string  _filterCategory     = string.Empty;
+    private string  _filterAvailability = string.Empty;
+    private bool    _showModal          = false;
+    private string  _modalError         = string.Empty;
+    private Product _editProduct        = new();
+    private Product? _deleteTarget      = null;
+
+    private static readonly string[] Categories =
+        { "Pork","Chicken","Beef","Seafood","Noodles","Veggies","Rice","Dessert","Drinks" };
+
+    protected override void OnInitialized()
+    {
+        DataService.OnChange += StateHasChanged;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && !AuthService.IsAuthenticated)
+        {
+            Nav.NavigateTo("/manager/login", forceLoad: true);
+            await Task.CompletedTask;
+        }
+    }
+
+    public void Dispose() => DataService.OnChange -= StateHasChanged;
+
+    private IEnumerable<Product> FilteredProducts =>
+        DataService.Products
+            .Where(p => string.IsNullOrEmpty(_search)
+                        || p.Name.Contains(_search, StringComparison.OrdinalIgnoreCase)
+                        || p.Category.Contains(_search, StringComparison.OrdinalIgnoreCase))
+            .Where(p => string.IsNullOrEmpty(_filterCategory) || p.Category == _filterCategory)
+            .Where(p => string.IsNullOrEmpty(_filterAvailability)
+                        || p.IsAvailable.ToString().ToLower() == _filterAvailability)
+            .OrderBy(p => p.Category)
+            .ThenBy(p => p.Name);
+
+    private void OpenAddModal()
+    {
+        _editProduct = new Product { IsAvailable = true };
+        _modalError  = string.Empty;
+        _showModal   = true;
+    }
+
+    private void OpenEditModal(Product p)
+    {
+        _editProduct = new Product
+        {
+            Id          = p.Id,
+            Name        = p.Name,
+            Category    = p.Category,
+            PriceHalf   = p.PriceHalf,
+            PriceFull   = p.PriceFull,
+            Description = p.Description,
+            IsAvailable = p.IsAvailable,
+        };
+        _modalError = string.Empty;
+        _showModal  = true;
+    }
+
+    private void CloseModal()
+    {
+        _showModal  = false;
+        _modalError = string.Empty;
+    }
+
+    private void SaveProduct()
+    {
+        if (string.IsNullOrWhiteSpace(_editProduct.Name))
+        { _modalError = "Product name is required."; return; }
+        if (string.IsNullOrWhiteSpace(_editProduct.Category))
+        { _modalError = "Please select a category."; return; }
+        if (_editProduct.PriceFull <= 0)
+        { _modalError = "Full price must be greater than 0."; return; }
+
+        if (_editProduct.Id == 0)
+            DataService.AddProduct(_editProduct);
+        else
+            DataService.UpdateProduct(_editProduct);
+
+        CloseModal();
+    }
+
+    private void ToggleAvailability(Product p)
+    {
+        var copy = new Product
+        {
+            Id = p.Id, Name = p.Name, Category = p.Category,
+            PriceHalf = p.PriceHalf, PriceFull = p.PriceFull,
+            Description = p.Description, IsAvailable = !p.IsAvailable,
+        };
+        DataService.UpdateProduct(copy);
+    }
+
+    private void ConfirmDelete(Product p) => _deleteTarget = p;
+
+    private void DeleteProduct()
+    {
+        if (_deleteTarget is not null)
+            DataService.DeleteProduct(_deleteTarget.Id);
+        _deleteTarget = null;
+    }
+}
+
+<style>
+    .product-card { transition: transform 0.15s, box-shadow 0.15s; overflow: visible; position: relative; }
+    .product-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.10) !important; }
+
+    .product-ribbon {
+        position: absolute;
+        top: 12px; left: -8px;
+        background: #d32f2f;
+        color: white;
+        font-size: 10px;
+        font-weight: 700;
+        padding: 2px 10px 2px 8px;
+        border-radius: 0 4px 4px 0;
+        letter-spacing: .5px;
+        box-shadow: 2px 2px 6px rgba(0,0,0,0.15);
+    }
+
+    .modal-backdrop-custom {
+        position: fixed; inset: 0;
+        background: rgba(0,0,0,0.45);
+        z-index: 1040;
+        animation: fadeIn 0.2s;
+    }
+
+    .modal-panel {
+        position: fixed;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1050;
+        width: 95%;
+        max-width: 520px;
+        max-height: 90vh;
+        overflow-y: auto;
+        border-radius: 16px;
+        animation: slideIn 0.25s ease-out;
+    }
+
+    @@keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
+    @@keyframes slideIn { from { opacity: 0; transform: translate(-50%,-45%); } to { opacity: 1; transform: translate(-50%,-50%); } }
+</style>
